@@ -9,10 +9,9 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --primary:#0A2647;--primary-light:#1B4F8A;--accent:#C8A96E;--accent-light:#E8D5A3;
+  --primary:#0A2647;--primary-light:#1B4F8A;--accent:#C8A96E;
   --bg:#F4F7FB;--white:#FFFFFF;--text:#1A2535;--muted:#6B7A99;--border:#DDE3EF;
-  --success:#1A7F5A;--danger:#C0392B;--warning:#E67E22;--radius:10px;
-  --shadow:0 2px 12px rgba(10,38,71,0.08);
+  --success:#1A7F5A;--danger:#C0392B;--radius:10px;--shadow:0 2px 12px rgba(10,38,71,0.08);
 }
 body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px}
 .hidden{display:none!important}
@@ -24,7 +23,6 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .lang-btn.active{background:var(--accent);color:var(--primary)}
 .user-badge{background:rgba(255,255,255,0.12);padding:6px 14px;border-radius:20px;font-size:13px;display:flex;align-items:center;gap:8px}
 .logout-btn{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#fff;padding:5px 12px;border-radius:6px;cursor:pointer;font-size:12px}
-.logout-btn:hover{background:rgba(255,255,255,0.2)}
 .notif-bell{position:relative;cursor:pointer;font-size:18px}
 .notif-count{position:absolute;top:-6px;right:-6px;background:#e74c3c;color:#fff;border-radius:50%;width:18px;height:18px;font-size:10px;display:flex;align-items:center;justify-content:center;font-weight:700}
 #login-page{min-height:calc(100vh - 56px);display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0A2647 0%,#1B4F8A 50%,#0A2647 100%)}
@@ -33,7 +31,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .login-logo h1{color:var(--primary);font-size:26px;font-weight:800;letter-spacing:1px}
 .login-logo p{color:var(--muted);font-size:13px;margin-top:4px}
 .login-tabs{display:flex;gap:0;margin-bottom:28px;border:1px solid var(--border);border-radius:8px;overflow:hidden}
-.login-tab{flex:1;padding:10px;text-align:center;cursor:pointer;font-size:13px;font-weight:600;color:var(--muted);background:#fff;border:none;transition:all 0.2s}
+.login-tab{flex:1;padding:10px;text-align:center;cursor:pointer;font-size:13px;font-weight:600;color:var(--muted);background:#fff;border:none;transition:all 0.2s;font-family:inherit}
 .login-tab.active{background:var(--primary);color:#fff}
 .form-group{margin-bottom:16px}
 .form-group label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px}
@@ -41,24 +39,20 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--primary-light)}
 .form-group textarea{resize:vertical;min-height:80px}
 .btn{padding:11px 20px;border-radius:8px;font-size:14px;font-weight:600;cursor:pointer;border:none;transition:all 0.2s;display:inline-flex;align-items:center;gap:6px;font-family:inherit}
-.btn-primary{background:var(--primary);color:#fff}
-.btn-primary:hover{background:var(--primary-light)}
-.btn-accent{background:var(--accent);color:var(--primary)}
-.btn-accent:hover{background:#B8914A}
+.btn-primary{background:var(--primary);color:#fff}.btn-primary:hover{background:var(--primary-light)}
+.btn-accent{background:var(--accent);color:var(--primary)}.btn-accent:hover{background:#B8914A}
 .btn-success{background:var(--success);color:#fff}
 .btn-danger{background:var(--danger);color:#fff}
-.btn-outline{background:#fff;color:var(--primary);border:1px solid var(--border)}
-.btn-outline:hover{border-color:var(--primary)}
-.btn-sm{padding:6px 14px;font-size:12px}
-.btn-full{width:100%;justify-content:center}
+.btn-outline{background:#fff;color:var(--primary);border:1px solid var(--border)}.btn-outline:hover{border-color:var(--primary)}
+.btn-sm{padding:6px 14px;font-size:12px}.btn-full{width:100%;justify-content:center}
 .msg{padding:10px 14px;border-radius:8px;font-size:13px;margin-bottom:14px}
 .msg-error{background:#FEE;color:#c0392b;border:1px solid #f5c6c6}
-.msg-success{background:#EFf8F3;color:#1A7F5A;border:1px solid #a8d5b8}
+.msg-success{background:#EFF8F3;color:#1A7F5A;border:1px solid #a8d5b8}
 .msg-info{background:#EEF4FF;color:var(--primary);border:1px solid #b3c6e8}
 #app-layout{display:flex;min-height:calc(100vh - 56px)}
 #sidebar{width:220px;background:var(--primary);color:#fff;padding:20px 0;flex-shrink:0;position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto}
 .sidebar-section{padding:0 16px;margin-bottom:6px}
-.sidebar-section-label{font-size:10px;font-weight:700;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1px;padding:12px 8px 6px}
+.sidebar-label{font-size:10px;font-weight:700;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1px;padding:12px 8px 6px}
 .nav-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:8px;cursor:pointer;font-size:13px;color:rgba(255,255,255,0.75);transition:all 0.2s;margin-bottom:2px}
 .nav-item:hover{background:rgba(255,255,255,0.1);color:#fff}
 .nav-item.active{background:var(--accent);color:var(--primary);font-weight:700}
@@ -72,9 +66,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .card-title{font-size:15px;font-weight:700;color:var(--primary)}
 .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-bottom:24px}
 .stat-card{background:#fff;border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);border-left:4px solid var(--primary)}
-.stat-card.gold{border-left-color:var(--accent)}
-.stat-card.green{border-left-color:var(--success)}
-.stat-card.red{border-left-color:var(--danger)}
+.stat-card.gold{border-left-color:var(--accent)}.stat-card.green{border-left-color:var(--success)}.stat-card.red{border-left-color:var(--danger)}
 .stat-value{font-size:26px;font-weight:800;color:var(--primary);line-height:1}
 .stat-label{font-size:12px;color:var(--muted);margin-top:4px}
 .table-wrap{overflow-x:auto}
@@ -83,22 +75,16 @@ th{text-align:left;font-size:11px;font-weight:700;color:var(--muted);text-transf
 td{padding:12px;border-bottom:1px solid var(--border);font-size:13px;vertical-align:middle}
 tr:hover td{background:#F8FAFF}
 .badge{padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;display:inline-block}
-.badge-pending{background:#FFF3E0;color:#E67E22}
-.badge-approved{background:#E8F5E9;color:#2E7D32}
-.badge-rejected{background:#FFEBEE;color:#C62828}
-.badge-new{background:#E3F2FD;color:#1565C0}
-.badge-reviewed{background:#F3E5F5;color:#6A1B9A}
-.badge-quoted{background:#FFF8E1;color:#F57F17}
-.badge-treated{background:#E8F5E9;color:#2E7D32}
+.badge-pending{background:#FFF3E0;color:#E67E22}.badge-approved{background:#E8F5E9;color:#2E7D32}
+.badge-rejected{background:#FFEBEE;color:#C62828}.badge-new{background:#E3F2FD;color:#1565C0}
+.badge-quoted{background:#FFF8E1;color:#F57F17}.badge-treated{background:#E8F5E9;color:#2E7D32}
 .modal-overlay{position:fixed;inset:0;background:rgba(10,38,71,0.55);z-index:999;display:flex;align-items:center;justify-content:center;padding:20px}
 .modal{background:#fff;border-radius:14px;width:100%;max-width:680px;max-height:90vh;overflow-y:auto;box-shadow:0 30px 80px rgba(10,38,71,0.3)}
 .modal-header{padding:20px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:#fff;border-radius:14px 14px 0 0;z-index:1}
 .modal-header h3{font-size:17px;font-weight:700;color:var(--primary)}
-.modal-body{padding:24px}
-.modal-footer{padding:16px 24px;border-top:1px solid var(--border);display:flex;gap:10px;justify-content:flex-end}
+.modal-body{padding:24px}.modal-footer{padding:16px 24px;border-top:1px solid var(--border);display:flex;gap:10px;justify-content:flex-end}
 .close-btn{background:none;border:none;font-size:20px;cursor:pointer;color:var(--muted);line-height:1}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.form-grid .full{grid-column:1/-1}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.form-grid .full{grid-column:1/-1}
 .file-upload-area{border:2px dashed var(--border);border-radius:8px;padding:20px;text-align:center;cursor:pointer;transition:border 0.2s;color:var(--muted);font-size:13px}
 .file-upload-area:hover{border-color:var(--primary-light);color:var(--primary)}
 .uploaded-files{margin-top:10px;display:flex;flex-direction:column;gap:6px}
@@ -106,17 +92,11 @@ tr:hover td{background:#F8FAFF}
 .ai-report-box{background:linear-gradient(135deg,#EEF4FF,#F4F7FB);border:1px solid #B3C6E8;border-radius:10px;padding:18px;margin-top:14px}
 .ai-report-header{display:flex;align-items:center;gap:8px;margin-bottom:12px;font-weight:700;color:var(--primary);font-size:14px}
 .wallet-card{background:linear-gradient(135deg,var(--primary),var(--primary-light));border-radius:14px;padding:24px;color:#fff;margin-bottom:20px}
-.wallet-amount{font-size:36px;font-weight:800;margin:8px 0}
-.wallet-subtitle{font-size:13px;opacity:0.7}
+.wallet-amount{font-size:36px;font-weight:800;margin:8px 0}.wallet-subtitle{font-size:13px;opacity:0.7}
 .leader-item{display:flex;align-items:center;gap:14px;padding:12px;border-radius:8px;margin-bottom:8px;background:#F8FAFF}
 .leader-rank{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px}
-.rank-1{background:var(--accent);color:var(--primary)}
-.rank-2{background:#C0C0C0;color:#fff}
-.rank-3{background:#CD7F32;color:#fff}
-.rank-other{background:var(--border);color:var(--muted)}
-.leader-info{flex:1}
-.leader-name{font-weight:700;font-size:14px}
-.leader-meta{font-size:12px;color:var(--muted)}
+.rank-1{background:var(--accent);color:var(--primary)}.rank-2{background:#C0C0C0;color:#fff}.rank-3{background:#CD7F32;color:#fff}.rank-other{background:var(--border);color:var(--muted)}
+.leader-info{flex:1}.leader-name{font-weight:700;font-size:14px}.leader-meta{font-size:12px;color:var(--muted)}
 .leader-score{font-weight:800;color:var(--primary);font-size:16px}
 .progress-bar{height:6px;background:var(--border);border-radius:3px;overflow:hidden;margin-top:4px}
 .progress-fill{height:100%;background:var(--accent);border-radius:3px}
@@ -124,21 +104,12 @@ tr:hover td{background:#F8FAFF}
 .notif-item{padding:12px;border-radius:8px;margin-bottom:8px;border-left:3px solid var(--accent);background:#F8FAFF;font-size:13px;cursor:pointer}
 .notif-item.unread{background:#EEF4FF;border-left-color:var(--primary)}
 .notif-time{font-size:11px;color:var(--muted);margin-top:4px}
-.loading{display:flex;align-items:center;justify-content:center;padding:40px;color:var(--muted)}
 .spinner{width:24px;height:24px;border:3px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin 0.8s linear infinite;margin-right:10px}
 @keyframes spin{to{transform:rotate(360deg)}}
 .section-tabs{display:flex;gap:0;margin-bottom:20px;border:1px solid var(--border);border-radius:8px;overflow:hidden;width:fit-content}
 .section-tab{padding:8px 18px;font-size:13px;font-weight:600;cursor:pointer;background:#fff;border:none;color:var(--muted);transition:all 0.2s;font-family:inherit}
 .section-tab.active{background:var(--primary);color:#fff}
-.empty-state{text-align:center;padding:48px 20px;color:var(--muted)}
-.empty-state-icon{font-size:48px;margin-bottom:12px;opacity:0.4}
-@media(max-width:768px){
-  #sidebar{display:none}
-  #main-content{padding:16px}
-  .form-grid{grid-template-columns:1fr}
-  .stats-grid{grid-template-columns:1fr 1fr}
-  .login-card{width:95%;padding:32px 20px}
-}
+@media(max-width:768px){#sidebar{display:none}#main-content{padding:16px}.form-grid{grid-template-columns:1fr}.stats-grid{grid-template-columns:1fr 1fr}.login-card{width:95%;padding:32px 20px}}
 </style>
 </head>
 <body>
@@ -151,195 +122,222 @@ tr:hover td{background:#F8FAFF}
     <button class="lang-btn" onclick="setLang('fr')">FR</button>
     <div class="notif-bell hidden" id="notif-bell" onclick="toggleNotifPanel()">🔔<span class="notif-count" id="notif-count">0</span></div>
     <div class="user-badge hidden" id="user-badge"><span id="user-name-display"></span></div>
-    <button class="logout-btn hidden" id="logout-btn" onclick="logout()">⬅ Çıkış</button>
+    <button class="logout-btn hidden" id="logout-btn" onclick="logout()">⬅ <span data-i18n="logout">Çıkış</span></button>
   </div>
 </div>
 
+<!-- LOGIN -->
 <div id="login-page">
   <div class="login-card">
     <div class="login-logo">
       <h1>✚ Memorial Cabinet</h1>
-      <p id="txt-subtitle">Doktor Referans & Hasta Yönetim Sistemi</p>
+      <p data-i18n="subtitle">Doktor Referans &amp; Hasta Yönetim Sistemi</p>
     </div>
     <div class="login-tabs">
-      <button class="login-tab active" onclick="switchLoginTab('doctor')" id="tab-btn-doctor">Doktor Girişi</button>
-      <button class="login-tab" onclick="switchLoginTab('admin')" id="tab-btn-admin">Admin Girişi</button>
-      <button class="login-tab" onclick="switchLoginTab('register')" id="tab-btn-register">Kayıt Ol</button>
+      <button class="login-tab active" onclick="switchLoginTab('doctor')" id="tab-btn-doctor" data-i18n="doctor_login">Doktor Girişi</button>
+      <button class="login-tab" onclick="switchLoginTab('admin')" id="tab-btn-admin" data-i18n="admin_login">Admin Girişi</button>
+      <button class="login-tab" onclick="switchLoginTab('register')" id="tab-btn-register" data-i18n="register">Kayıt Ol</button>
     </div>
     <div id="login-msg"></div>
     <div id="tab-doctor">
-      <div class="form-group"><label>E-posta</label><input type="email" id="doc-login-email" placeholder="doctor@example.com"></div>
-      <div class="form-group"><label>Şifre</label><input type="password" id="doc-login-pass" placeholder="••••••••"></div>
-      <button class="btn btn-primary btn-full" onclick="doctorLogin()">Giriş Yap</button>
+      <div class="form-group"><label data-i18n="email">E-posta</label><input type="email" id="doc-login-email" placeholder="doctor@example.com"></div>
+      <div class="form-group"><label data-i18n="password">Şifre</label><input type="password" id="doc-login-pass" placeholder="••••••••"></div>
+      <button class="btn btn-primary btn-full" onclick="doctorLogin()" data-i18n="login_btn">Giriş Yap</button>
     </div>
     <div id="tab-admin" class="hidden">
-      <div class="form-group"><label>Admin E-posta</label><input type="email" id="adm-login-email" value="admin@memorial.com"></div>
-      <div class="form-group"><label>Şifre</label><input type="password" id="adm-login-pass" value="admin123"></div>
-      <button class="btn btn-primary btn-full" onclick="adminLogin()">Giriş Yap</button>
+      <div class="form-group"><label data-i18n="email">E-posta</label><input type="email" id="adm-login-email" value="admin@memorial.com"></div>
+      <div class="form-group"><label data-i18n="password">Şifre</label><input type="password" id="adm-login-pass" value="admin123"></div>
+      <button class="btn btn-primary btn-full" onclick="adminLogin()" data-i18n="login_btn">Giriş Yap</button>
     </div>
     <div id="tab-register" class="hidden">
       <div class="form-grid">
-        <div class="form-group"><label>Ad</label><input type="text" id="reg-first" placeholder="Ali"></div>
-        <div class="form-group"><label>Soyad</label><input type="text" id="reg-last" placeholder="Yılmaz"></div>
-        <div class="form-group full"><label>E-posta</label><input type="email" id="reg-email" placeholder="doctor@hospital.com"></div>
-        <div class="form-group"><label>Telefon</label><input type="text" id="reg-phone" placeholder="5XX XXX XX XX"></div>
-        <div class="form-group"><label>Uzmanlık</label><input type="text" id="reg-specialty" placeholder="Kardiyoloji"></div>
-        <div class="form-group full"><label>Adres</label><input type="text" id="reg-address" placeholder="Şehir, Ülke"></div>
-        <div class="form-group full"><label>Şifre</label><input type="password" id="reg-pass" placeholder="En az 6 karakter"></div>
+        <div class="form-group"><label data-i18n="first_name">Ad</label><input type="text" id="reg-first" placeholder="Ali"></div>
+        <div class="form-group"><label data-i18n="last_name">Soyad</label><input type="text" id="reg-last" placeholder="Yılmaz"></div>
+        <div class="form-group full"><label data-i18n="email">E-posta</label><input type="email" id="reg-email" placeholder="doctor@hospital.com"></div>
+        <div class="form-group"><label data-i18n="phone">Telefon</label><input type="text" id="reg-phone" placeholder="5XX XXX XX XX"></div>
+        <div class="form-group"><label data-i18n="specialty">Uzmanlık</label><input type="text" id="reg-specialty" placeholder="Kardiyoloji"></div>
+        <div class="form-group full"><label data-i18n="address">Adres</label><input type="text" id="reg-address" placeholder="Şehir, Ülke"></div>
+        <div class="form-group full"><label data-i18n="password">Şifre</label><input type="password" id="reg-pass" placeholder="En az 6 karakter"></div>
         <div class="form-group full">
-          <label>Sertifika Yükle</label>
+          <label data-i18n="certificate">Sertifika Yükle</label>
           <div class="file-upload-area" onclick="document.getElementById('reg-cert-file').click()">
             <input type="file" id="reg-cert-file" accept=".pdf,.jpg,.png" style="display:none" onchange="handleCertUpload(this)">
-            <span id="reg-cert-label">📎 Tıklayarak sertifika yükleyin</span>
+            <span id="reg-cert-label" data-i18n="cert_hint">📎 Tıklayarak sertifika yükleyin</span>
           </div>
         </div>
       </div>
-      <button class="btn btn-primary btn-full" onclick="registerDoctor()" style="margin-top:8px">Başvuruyu Gönder</button>
+      <button class="btn btn-primary btn-full" onclick="registerDoctor()" style="margin-top:8px" data-i18n="send_app">Başvuruyu Gönder</button>
     </div>
   </div>
 </div>
 
+<!-- APP -->
 <div id="app-layout" class="hidden">
   <div id="sidebar">
     <div id="doc-sidebar">
       <div class="sidebar-section">
-        <div class="sidebar-section-label">Doktor Paneli</div>
-        <div class="nav-item active" onclick="showPage('doc-dashboard')"><span class="nav-icon">📊</span><span>Özet</span></div>
-        <div class="nav-item" onclick="showPage('doc-patients')"><span class="nav-icon">👥</span><span>Hastalarım</span></div>
-        <div class="nav-item" onclick="showPage('doc-new-patient')"><span class="nav-icon">➕</span><span>Yeni Hasta</span></div>
-        <div class="nav-item" onclick="showPage('doc-wallet')"><span class="nav-icon">💰</span><span>Cüzdan</span></div>
-        <div class="nav-item" onclick="showPage('doc-leaderboard')"><span class="nav-icon">🏆</span><span>Sıralama</span></div>
+        <div class="sidebar-label" data-i18n="doctor_panel">Doktor Paneli</div>
+        <div class="nav-item active" onclick="showPage('doc-dashboard')"><span class="nav-icon">📊</span><span data-i18n="nav_dashboard">Özet</span></div>
+        <div class="nav-item" onclick="showPage('doc-patients')"><span class="nav-icon">👥</span><span data-i18n="nav_patients">Hastalarım</span></div>
+        <div class="nav-item" onclick="showPage('doc-new-patient')"><span class="nav-icon">➕</span><span data-i18n="nav_new_patient">Yeni Hasta</span></div>
+        <div class="nav-item" onclick="showPage('doc-wallet')"><span class="nav-icon">💰</span><span data-i18n="nav_wallet">Cüzdan</span></div>
+        <div class="nav-item" onclick="showPage('doc-leaderboard')"><span class="nav-icon">🏆</span><span data-i18n="nav_leaderboard">Sıralama</span></div>
       </div>
     </div>
     <div id="adm-sidebar" class="hidden">
       <div class="sidebar-section">
-        <div class="sidebar-section-label">Admin Panel</div>
-        <div class="nav-item active" onclick="showPage('adm-dashboard')"><span class="nav-icon">📊</span><span>Özet</span></div>
-        <div class="nav-item" onclick="showPage('adm-doctors')"><span class="nav-icon">👨‍⚕️</span><span>Doktorlar</span></div>
-        <div class="nav-item" onclick="showPage('adm-leads')"><span class="nav-icon">📋</span><span>Hasta Leadleri</span></div>
-        <div class="nav-item" onclick="showPage('adm-commissions')"><span class="nav-icon">💳</span><span>Komisyonlar</span></div>
-        <div class="nav-item" onclick="showPage('adm-leaderboard')"><span class="nav-icon">🏆</span><span>Sıralama</span></div>
+        <div class="sidebar-label" data-i18n="admin_panel">Admin Panel</div>
+        <div class="nav-item active" onclick="showPage('adm-dashboard')"><span class="nav-icon">📊</span><span data-i18n="nav_dashboard">Özet</span></div>
+        <div class="nav-item" onclick="showPage('adm-doctors')"><span class="nav-icon">👨‍⚕️</span><span data-i18n="nav_doctors">Doktorlar</span></div>
+        <div class="nav-item" onclick="showPage('adm-leads')"><span class="nav-icon">📋</span><span data-i18n="nav_leads">Hasta Leadleri</span></div>
+        <div class="nav-item" onclick="showPage('adm-commissions')"><span class="nav-icon">💳</span><span data-i18n="nav_commissions">Komisyonlar</span></div>
+        <div class="nav-item" onclick="showPage('adm-leaderboard')"><span class="nav-icon">🏆</span><span data-i18n="nav_leaderboard">Sıralama</span></div>
       </div>
     </div>
   </div>
 
   <div id="main-content">
-    <!-- DOCTOR PAGES -->
+    <!-- DOC DASHBOARD -->
     <div id="page-doc-dashboard" class="page hidden">
-      <div class="page-header"><h2>Hoş Geldiniz</h2><p>Hasta yönlendirme özetiniz</p></div>
+      <div class="page-header"><h2 data-i18n="welcome">Hoş Geldiniz</h2><p data-i18n="dashboard_sub">Hasta yönlendirme özetiniz</p></div>
       <div class="stats-grid" id="doc-stats"></div>
       <div class="card">
-        <div class="card-header"><span class="card-title">Son Hastalar</span><button class="btn btn-primary btn-sm" onclick="showPage('doc-new-patient')">+ Hasta Ekle</button></div>
-        <div class="table-wrap"><table><thead><tr><th>Hasta</th><th>Tarih</th><th>Durum</th><th>Teklif</th><th></th></tr></thead><tbody id="doc-recent-body"><tr><td colspan="5" class="loading"><div class="spinner"></div>Yükleniyor...</td></tr></tbody></table></div>
+        <div class="card-header"><span class="card-title" data-i18n="recent_patients">Son Hastalar</span><button class="btn btn-primary btn-sm" onclick="showPage('doc-new-patient')">+ <span data-i18n="nav_new_patient">Yeni Hasta</span></button></div>
+        <div class="table-wrap"><table><thead><tr><th data-i18n="th_patient">Hasta</th><th data-i18n="th_date">Tarih</th><th data-i18n="th_status">Durum</th><th data-i18n="th_offer">Teklif</th><th></th></tr></thead><tbody id="doc-recent-body"></tbody></table></div>
       </div>
     </div>
-
+    <!-- DOC PATIENTS -->
     <div id="page-doc-patients" class="page hidden">
-      <div class="page-header"><h2>Hastalarım</h2></div>
+      <div class="page-header"><h2 data-i18n="nav_patients">Hastalarım</h2></div>
       <div class="card">
-        <div class="card-header"><span class="card-title">Tüm Yönlendirmeler</span><button class="btn btn-primary btn-sm" onclick="showPage('doc-new-patient')">+ Yeni Hasta</button></div>
-        <div class="table-wrap"><table><thead><tr><th>Hasta</th><th>İletişim</th><th>Tarih</th><th>Durum</th><th>Teklif</th><th>Komisyon</th><th></th></tr></thead><tbody id="doc-patients-body"></tbody></table></div>
+        <div class="card-header"><span class="card-title" data-i18n="all_referrals">Tüm Yönlendirmeler</span><button class="btn btn-primary btn-sm" onclick="showPage('doc-new-patient')">+ <span data-i18n="nav_new_patient">Yeni Hasta</span></button></div>
+        <div class="table-wrap"><table><thead><tr><th data-i18n="th_patient">Hasta</th><th data-i18n="th_contact">İletişim</th><th data-i18n="th_date">Tarih</th><th data-i18n="th_status">Durum</th><th data-i18n="th_offer">Teklif</th><th data-i18n="th_commission">Komisyon</th><th></th></tr></thead><tbody id="doc-patients-body"></tbody></table></div>
       </div>
     </div>
-
+    <!-- DOC NEW PATIENT -->
     <div id="page-doc-new-patient" class="page hidden">
-      <div class="page-header"><h2>Yeni Hasta Yönlendirme</h2><p>Hasta bilgilerini girin, AI analiz raporu oluşturulacak</p></div>
+      <div class="page-header"><h2 data-i18n="new_patient_title">Yeni Hasta Yönlendirme</h2><p data-i18n="new_patient_sub">Hasta bilgilerini girin, AI analiz raporu oluşturulacak</p></div>
       <div class="card">
         <div class="form-grid">
-          <div class="form-group"><label>Ad</label><input type="text" id="p-first" placeholder="Hasta adı"></div>
-          <div class="form-group"><label>Soyad</label><input type="text" id="p-last" placeholder="Hasta soyadı"></div>
-          <div class="form-group full"><label>Telefon</label><div style="display:flex;gap:8px"><select id="p-phone-code" style="width:180px;border:1px solid var(--border);border-radius:8px;padding:10px 8px;font-size:13px;color:var(--text);background:#fff;outline:none"><option value="+90">🇹🇷 +90 Türkiye</option><option value="+1">🇺🇸 +1 USA/Canada</option><option value="+44">🇬🇧 +44 UK</option><option value="+49">🇩🇪 +49 Germany</option><option value="+33">🇫🇷 +33 France</option><option value="+7">🇷🇺 +7 Russia</option><option value="+971">🇦🇪 +971 UAE</option><option value="+966">🇸🇦 +966 Saudi Arabia</option><option value="+974">🇶🇦 +974 Qatar</option><option value="+965">🇰🇼 +965 Kuwait</option><option value="+973">🇧🇭 +973 Bahrain</option><option value="+968">🇴🇲 +968 Oman</option><option value="+20">🇪🇬 +20 Egypt</option><option value="+212">🇲🇦 +212 Morocco</option><option value="+213">🇩🇿 +213 Algeria</option><option value="+216">🇹🇳 +216 Tunisia</option><option value="+218">🇱🇾 +218 Libya</option><option value="+249">🇸🇩 +249 Sudan</option><option value="+251">🇪🇹 +251 Ethiopia</option><option value="+254">🇰🇪 +254 Kenya</option><option value="+255">🇹🇿 +255 Tanzania</option><option value="+256">🇺🇬 +256 Uganda</option><option value="+234">🇳🇬 +234 Nigeria</option><option value="+233">🇬🇭 +233 Ghana</option><option value="+221">🇸🇳 +221 Senegal</option><option value="+225">🇨🇮 +225 Ivory Coast</option><option value="+237">🇨🇲 +237 Cameroon</option><option value="+243">🇨🇩 +243 DR Congo</option><option value="+260">🇿🇲 +260 Zambia</option><option value="+263">🇿🇼 +263 Zimbabwe</option><option value="+27">🇿🇦 +27 South Africa</option><option value="+250">🇷🇼 +250 Rwanda</option><option value="+252">🇸🇴 +252 Somalia</option><option value="+257">🇧🇮 +257 Burundi</option><option value="+258">🇲🇿 +258 Mozambique</option><option value="+261">🇲🇬 +261 Madagascar</option><option value="+264">🇳🇦 +264 Namibia</option><option value="+267">🇧🇼 +267 Botswana</option><option value="+92">🇵🇰 +92 Pakistan</option><option value="+91">🇮🇳 +91 India</option><option value="+880">🇧🇩 +880 Bangladesh</option><option value="+94">🇱🇰 +94 Sri Lanka</option><option value="+98">🇮🇷 +98 Iran</option><option value="+964">🇮🇶 +964 Iraq</option><option value="+963">🇸🇾 +963 Syria</option><option value="+961">🇱🇧 +961 Lebanon</option><option value="+962">🇯🇴 +962 Jordan</option><option value="+972">🇮🇱 +972 Israel</option><option value="+90">🇹🇷 +90 Kuzey Kıbrıs</option><option value="+30">🇬🇷 +30 Greece</option><option value="+40">🇷🇴 +40 Romania</option><option value="+359">🇧🇬 +359 Bulgaria</option><option value="+381">🇷🇸 +381 Serbia</option><option value="+385">🇭🇷 +385 Croatia</option><option value="+86">🇨🇳 +86 China</option><option value="+81">🇯🇵 +81 Japan</option><option value="+82">🇰🇷 +82 South Korea</option><option value="+55">🇧🇷 +55 Brazil</option><option value="+52">🇲🇽 +52 Mexico</option><option value="+54">🇦🇷 +54 Argentina</option><option value="+61">🇦🇺 +61 Australia</option></select><input type="text" id="p-phone" placeholder="5XX XXX XX XX" style="flex:1"></div></div>
-          <div class="form-group"><label>E-posta</label><input type="email" id="p-email" placeholder="hasta@email.com"></div>
-          <div class="form-group full"><label>Adres</label><input type="text" id="p-address" placeholder="Şehir, Ülke"></div>
-          <div class="form-group"><label>Boy (cm)</label><input type="number" id="p-height" placeholder="175"></div>
-          <div class="form-group"><label>Kilo (kg)</label><input type="number" id="p-weight" placeholder="70"></div>
-          <div class="form-group full"><label>Hastalık Detayı / Şikayetler</label><textarea id="p-disease" rows="4" placeholder="Hastanın mevcut durumu, semptomlar, geçmiş hastalıklar..."></textarea></div>
+          <div class="form-group"><label data-i18n="first_name">Ad</label><input type="text" id="p-first"></div>
+          <div class="form-group"><label data-i18n="last_name">Soyad</label><input type="text" id="p-last"></div>
           <div class="form-group full">
-            <label>Test, Rapor, Görüntüleme Yükle</label>
+            <label data-i18n="phone">Telefon</label>
+            <div style="display:flex;gap:8px">
+              <select id="p-phone-code" style="width:200px;border:1px solid var(--border);border-radius:8px;padding:10px 8px;font-size:13px;color:var(--text);background:#fff;outline:none">
+                <option value="+90">🇹🇷 +90 Türkiye</option><option value="+1">🇺🇸 +1 USA/Canada</option><option value="+44">🇬🇧 +44 UK</option>
+                <option value="+49">🇩🇪 +49 Germany</option><option value="+33">🇫🇷 +33 France</option><option value="+7">🇷🇺 +7 Russia</option>
+                <option value="+971">🇦🇪 +971 UAE</option><option value="+966">🇸🇦 +966 Saudi Arabia</option><option value="+974">🇶🇦 +974 Qatar</option>
+                <option value="+965">🇰🇼 +965 Kuwait</option><option value="+973">🇧🇭 +973 Bahrain</option><option value="+968">🇴🇲 +968 Oman</option>
+                <option value="+20">🇪🇬 +20 Egypt</option><option value="+212">🇲🇦 +212 Morocco</option><option value="+213">🇩🇿 +213 Algeria</option>
+                <option value="+216">🇹🇳 +216 Tunisia</option><option value="+218">🇱🇾 +218 Libya</option><option value="+249">🇸🇩 +249 Sudan</option>
+                <option value="+251">🇪🇹 +251 Ethiopia</option><option value="+254">🇰🇪 +254 Kenya</option><option value="+255">🇹🇿 +255 Tanzania</option>
+                <option value="+256">🇺🇬 +256 Uganda</option><option value="+234">🇳🇬 +234 Nigeria</option><option value="+233">🇬🇭 +233 Ghana</option>
+                <option value="+221">🇸🇳 +221 Senegal</option><option value="+225">🇨🇮 +225 Côte d'Ivoire</option><option value="+237">🇨🇲 +237 Cameroon</option>
+                <option value="+243">🇨🇩 +243 DR Congo</option><option value="+260">🇿🇲 +260 Zambia</option><option value="+263">🇿🇼 +263 Zimbabwe</option>
+                <option value="+27">🇿🇦 +27 South Africa</option><option value="+250">🇷🇼 +250 Rwanda</option><option value="+252">🇸🇴 +252 Somalia</option>
+                <option value="+258">🇲🇿 +258 Mozambique</option><option value="+264">🇳🇦 +264 Namibia</option><option value="+267">🇧🇼 +267 Botswana</option>
+                <option value="+92">🇵🇰 +92 Pakistan</option><option value="+91">🇮🇳 +91 India</option><option value="+880">🇧🇩 +880 Bangladesh</option>
+                <option value="+94">🇱🇰 +94 Sri Lanka</option><option value="+98">🇮🇷 +98 Iran</option><option value="+964">🇮🇶 +964 Iraq</option>
+                <option value="+963">🇸🇾 +963 Syria</option><option value="+961">🇱🇧 +961 Lebanon</option><option value="+962">🇯🇴 +962 Jordan</option>
+                <option value="+30">🇬🇷 +30 Greece</option><option value="+40">🇷🇴 +40 Romania</option><option value="+359">🇧🇬 +359 Bulgaria</option>
+                <option value="+381">🇷🇸 +381 Serbia</option><option value="+86">🇨🇳 +86 China</option><option value="+81">🇯🇵 +81 Japan</option>
+                <option value="+82">🇰🇷 +82 South Korea</option><option value="+55">🇧🇷 +55 Brazil</option><option value="+52">🇲🇽 +52 Mexico</option>
+                <option value="+54">🇦🇷 +54 Argentina</option><option value="+61">🇦🇺 +61 Australia</option>
+              </select>
+              <input type="text" id="p-phone" placeholder="5XX XXX XX XX" style="flex:1">
+            </div>
+          </div>
+          <div class="form-group"><label data-i18n="email">E-posta</label><input type="email" id="p-email" placeholder="hasta@email.com"></div>
+          <div class="form-group full"><label data-i18n="address">Adres</label><input type="text" id="p-address"></div>
+          <div class="form-group"><label data-i18n="height">Boy (cm)</label><input type="number" id="p-height" placeholder="175"></div>
+          <div class="form-group"><label data-i18n="weight">Kilo (kg)</label><input type="number" id="p-weight" placeholder="70"></div>
+          <div class="form-group full"><label data-i18n="disease_detail">Hastalık Detayı</label><textarea id="p-disease" rows="4"></textarea></div>
+          <div class="form-group full">
+            <label data-i18n="upload_docs">Belge Yükle</label>
             <div class="file-upload-area" onclick="document.getElementById('p-files').click()">
               <input type="file" id="p-files" multiple accept=".pdf,.jpg,.png,.doc,.docx" style="display:none" onchange="handlePatientFiles(this)">
-              <span>📎 PDF, JPEG, PNG — çoklu dosya yükleyebilirsiniz</span>
+              <span data-i18n="upload_hint">📎 PDF, JPEG, PNG — çoklu dosya yükleyebilirsiniz</span>
             </div>
             <div class="uploaded-files" id="p-files-list"></div>
           </div>
         </div>
         <div id="new-patient-msg"></div>
-        <button class="btn btn-primary" style="margin-top:16px" onclick="submitPatient()">🤖 AI Analiz Et &amp; Gönder</button>
+        <button class="btn btn-primary" style="margin-top:16px" onclick="submitPatient()">🤖 <span data-i18n="ai_submit">AI Analiz Et &amp; Gönder</span></button>
       </div>
       <div id="ai-report-preview"></div>
     </div>
-
+    <!-- DOC WALLET -->
     <div id="page-doc-wallet" class="page hidden">
-      <div class="page-header"><h2>Cüzdan</h2><p>Kazanımlarınız ve ödeme durumunuz</p></div>
+      <div class="page-header"><h2 data-i18n="nav_wallet">Cüzdan</h2><p data-i18n="wallet_sub">Kazanımlarınız ve ödeme durumunuz</p></div>
       <div class="wallet-card">
-        <div class="wallet-subtitle">Toplam Kazanç</div>
+        <div class="wallet-subtitle" data-i18n="total_earnings">Toplam Kazanç</div>
         <div class="wallet-amount" id="wallet-total">$0.00</div>
         <div style="display:flex;gap:24px;margin-top:12px;font-size:13px;opacity:0.8">
-          <span>✅ Ödendi: <strong id="wallet-paid">$0.00</strong></span>
-          <span>⏳ Bekliyor: <strong id="wallet-pending">$0.00</strong></span>
+          <span>✅ <span data-i18n="paid">Ödendi</span>: <strong id="wallet-paid">$0.00</strong></span>
+          <span>⏳ <span data-i18n="pending_pay">Bekliyor</span>: <strong id="wallet-pending">$0.00</strong></span>
         </div>
       </div>
       <div class="stats-grid" id="wallet-stats"></div>
       <div class="card">
-        <div class="card-header"><span class="card-title">Komisyon Geçmişi</span></div>
-        <div class="table-wrap"><table><thead><tr><th>Hasta</th><th>Tür</th><th>Tutar</th><th>Tarih</th><th>Durum</th></tr></thead><tbody id="wallet-table-body"></tbody></table></div>
+        <div class="card-header"><span class="card-title" data-i18n="commission_history">Komisyon Geçmişi</span></div>
+        <div class="table-wrap"><table><thead><tr><th data-i18n="th_patient">Hasta</th><th data-i18n="th_type">Tür</th><th data-i18n="th_amount">Tutar</th><th data-i18n="th_date">Tarih</th><th data-i18n="th_status">Durum</th></tr></thead><tbody id="wallet-table-body"></tbody></table></div>
       </div>
     </div>
-
+    <!-- DOC LEADERBOARD -->
     <div id="page-doc-leaderboard" class="page hidden">
-      <div class="page-header"><h2>En İyi Doktorlar</h2><p>Yönlendirme performansına göre sıralama</p></div>
+      <div class="page-header"><h2 data-i18n="top_doctors">En İyi Doktorlar</h2><p data-i18n="leaderboard_sub">Yönlendirme performansına göre sıralama</p></div>
       <div class="card" id="leaderboard-content"></div>
     </div>
-
-    <!-- ADMIN PAGES -->
+    <!-- ADM DASHBOARD -->
     <div id="page-adm-dashboard" class="page hidden">
-      <div class="page-header"><h2>Admin Dashboard</h2><p>Sistem geneli özet</p></div>
+      <div class="page-header"><h2 data-i18n="admin_dashboard">Admin Dashboard</h2><p data-i18n="system_summary">Sistem geneli özet</p></div>
       <div class="stats-grid" id="adm-stats"></div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-        <div class="card"><div class="card-header"><span class="card-title">Bekleyen Onaylar</span></div><div id="adm-pending-doctors"></div></div>
-        <div class="card"><div class="card-header"><span class="card-title">Yeni Leadler</span></div><div id="adm-new-leads"></div></div>
+        <div class="card"><div class="card-header"><span class="card-title" data-i18n="pending_approvals">Bekleyen Onaylar</span></div><div id="adm-pending-doctors"></div></div>
+        <div class="card"><div class="card-header"><span class="card-title" data-i18n="new_leads">Yeni Leadler</span></div><div id="adm-new-leads"></div></div>
       </div>
     </div>
-
+    <!-- ADM DOCTORS -->
     <div id="page-adm-doctors" class="page hidden">
-      <div class="page-header"><h2>Doktorlar</h2></div>
+      <div class="page-header"><h2 data-i18n="nav_doctors">Doktorlar</h2></div>
       <div class="section-tabs">
-        <button class="section-tab active" onclick="filterDoctors('all')">Tümü</button>
-        <button class="section-tab" onclick="filterDoctors('pending')">Bekleyen</button>
-        <button class="section-tab" onclick="filterDoctors('approved')">Onaylı</button>
-        <button class="section-tab" onclick="filterDoctors('rejected')">Reddedilen</button>
+        <button class="section-tab active" onclick="filterDoctors('all')" data-i18n="all">Tümü</button>
+        <button class="section-tab" onclick="filterDoctors('pending')" data-i18n="pending">Bekleyen</button>
+        <button class="section-tab" onclick="filterDoctors('approved')" data-i18n="approved">Onaylı</button>
+        <button class="section-tab" onclick="filterDoctors('rejected')" data-i18n="rejected">Reddedilen</button>
       </div>
-      <div class="card"><div class="table-wrap"><table><thead><tr><th>Doktor</th><th>Uzmanlık</th><th>İletişim</th><th>Durum</th><th>Puan</th><th></th></tr></thead><tbody id="adm-doctors-body"></tbody></table></div></div>
+      <div class="card"><div class="table-wrap"><table><thead><tr><th data-i18n="th_doctor">Doktor</th><th data-i18n="specialty">Uzmanlık</th><th data-i18n="th_contact">İletişim</th><th data-i18n="th_status">Durum</th><th data-i18n="th_score">Puan</th><th></th></tr></thead><tbody id="adm-doctors-body"></tbody></table></div></div>
     </div>
-
+    <!-- ADM LEADS -->
     <div id="page-adm-leads" class="page hidden">
-      <div class="page-header"><h2>Hasta Leadleri</h2></div>
+      <div class="page-header"><h2 data-i18n="nav_leads">Hasta Leadleri</h2></div>
       <div class="section-tabs">
-        <button class="section-tab active" onclick="filterLeads('all')">Tümü</button>
-        <button class="section-tab" onclick="filterLeads('new')">Yeni</button>
-        <button class="section-tab" onclick="filterLeads('quoted')">Teklifli</button>
-        <button class="section-tab" onclick="filterLeads('treated')">Tedavi</button>
+        <button class="section-tab active" onclick="filterLeads('all')" data-i18n="all">Tümü</button>
+        <button class="section-tab" onclick="filterLeads('new')" data-i18n="status_new">Yeni</button>
+        <button class="section-tab" onclick="filterLeads('quoted')" data-i18n="status_quoted">Teklifli</button>
+        <button class="section-tab" onclick="filterLeads('treated')" data-i18n="status_treated">Tedavi</button>
       </div>
-      <div class="card"><div class="table-wrap"><table><thead><tr><th>Hasta</th><th>Doktor</th><th>AI Bölüm</th><th>Tarih</th><th>Durum</th><th>Teklif</th><th></th></tr></thead><tbody id="adm-leads-body"></tbody></table></div></div>
+      <div class="card"><div class="table-wrap"><table><thead><tr><th data-i18n="th_patient">Hasta</th><th data-i18n="th_doctor">Doktor</th><th data-i18n="th_dept">AI Bölüm</th><th data-i18n="th_date">Tarih</th><th data-i18n="th_status">Durum</th><th data-i18n="th_offer">Teklif</th><th></th></tr></thead><tbody id="adm-leads-body"></tbody></table></div></div>
     </div>
-
+    <!-- ADM COMMISSIONS -->
     <div id="page-adm-commissions" class="page hidden">
-      <div class="page-header"><h2>Komisyon Yönetimi</h2></div>
+      <div class="page-header"><h2 data-i18n="nav_commissions">Komisyonlar</h2></div>
       <div class="stats-grid" id="adm-comm-stats"></div>
-      <div class="card"><div class="table-wrap"><table><thead><tr><th>Doktor</th><th>Hasta</th><th>Tür</th><th>Tutar</th><th>Tarih</th><th>Durum</th><th></th></tr></thead><tbody id="adm-comm-body"></tbody></table></div></div>
+      <div class="card"><div class="table-wrap"><table><thead><tr><th data-i18n="th_doctor">Doktor</th><th data-i18n="th_patient">Hasta</th><th data-i18n="th_type">Tür</th><th data-i18n="th_amount">Tutar</th><th data-i18n="th_date">Tarih</th><th data-i18n="th_status">Durum</th><th></th></tr></thead><tbody id="adm-comm-body"></tbody></table></div></div>
     </div>
-
+    <!-- ADM LEADERBOARD -->
     <div id="page-adm-leaderboard" class="page hidden">
-      <div class="page-header"><h2>Doktor Sıralaması</h2></div>
+      <div class="page-header"><h2 data-i18n="doctor_ranking">Doktor Sıralaması</h2></div>
       <div class="card" id="adm-leaderboard-content"></div>
     </div>
   </div>
 </div>
 
-<!-- NOTIFICATION PANEL -->
+<!-- NOTIF PANEL -->
 <div id="notif-panel" class="notif-panel hidden">
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
-    <strong>Bildirimler</strong>
+    <strong data-i18n="notifications">Bildirimler</strong>
     <button class="close-btn" onclick="toggleNotifPanel()">✕</button>
   </div>
   <div id="notif-list"></div>
@@ -348,15 +346,14 @@ tr:hover td{background:#F8FAFF}
 <!-- MODALS -->
 <div id="modal-doctor" class="modal-overlay hidden">
   <div class="modal">
-    <div class="modal-header"><h3>Doktor Detayı</h3><button class="close-btn" onclick="closeModal('modal-doctor')">✕</button></div>
+    <div class="modal-header"><h3 data-i18n="doctor_detail">Doktor Detayı</h3><button class="close-btn" onclick="closeModal('modal-doctor')">✕</button></div>
     <div class="modal-body" id="modal-doctor-body"></div>
     <div class="modal-footer" id="modal-doctor-footer"></div>
   </div>
 </div>
-
 <div id="modal-patient" class="modal-overlay hidden">
   <div class="modal">
-    <div class="modal-header"><h3>Hasta Detayı</h3><button class="close-btn" onclick="closeModal('modal-patient')">✕</button></div>
+    <div class="modal-header"><h3 data-i18n="patient_detail">Hasta Detayı</h3><button class="close-btn" onclick="closeModal('modal-patient')">✕</button></div>
     <div class="modal-body" id="modal-patient-body"></div>
     <div class="modal-footer" id="modal-patient-footer"></div>
   </div>
@@ -374,54 +371,203 @@ let allDoctors=[],allLeads=[],allCommissions=[];
 let patientFiles=[],certFile=null;
 let currentLang='tr';
 
-const i18n={
-  tr:{subtitle:'Doktor Referans & Hasta Yönetim Sistemi',d_login:'Doktor Girişi',a_login:'Admin Girişi',reg:'Kayıt Ol'},
-  en:{subtitle:'Doctor Referral & Patient Management System',d_login:'Doctor Login',a_login:'Admin Login',reg:'Register'},
-  fr:{subtitle:'Système de Référence Médecin & Gestion des Patients',d_login:'Connexion Médecin',a_login:'Connexion Admin',reg:"S'inscrire"}
+// ===================== i18n =====================
+const T={
+  tr:{
+    subtitle:'Doktor Referans & Hasta Yönetim Sistemi',
+    doctor_login:'Doktor Girişi',admin_login:'Admin Girişi',register:'Kayıt Ol',
+    email:'E-posta',password:'Şifre',login_btn:'Giriş Yap',
+    first_name:'Ad',last_name:'Soyad',phone:'Telefon',specialty:'Uzmanlık',
+    address:'Adres',certificate:'Sertifika Yükle',cert_hint:'📎 Tıklayarak sertifika yükleyin',
+    send_app:'Başvuruyu Gönder',logout:'Çıkış',
+    doctor_panel:'Doktor Paneli',admin_panel:'Admin Panel',
+    nav_dashboard:'Özet',nav_patients:'Hastalarım',nav_new_patient:'Yeni Hasta',
+    nav_wallet:'Cüzdan',nav_leaderboard:'Sıralama',nav_doctors:'Doktorlar',
+    nav_leads:'Hasta Leadleri',nav_commissions:'Komisyonlar',
+    welcome:'Hoş Geldiniz',dashboard_sub:'Hasta yönlendirme özetiniz',
+    recent_patients:'Son Hastalar',all_referrals:'Tüm Yönlendirmeler',
+    new_patient_title:'Yeni Hasta Yönlendirme',new_patient_sub:'Hasta bilgilerini girin, AI analiz raporu oluşturulacak',
+    height:'Boy (cm)',weight:'Kilo (kg)',disease_detail:'Hastalık Detayı / Şikayetler',
+    upload_docs:'Belge Yükle (Test, Rapor, Görüntüleme)',
+    upload_hint:'📎 PDF, JPEG, PNG — çoklu dosya yükleyebilirsiniz',
+    ai_submit:'AI Analiz Et & Gönder',
+    nav_wallet:'Cüzdan',wallet_sub:'Kazanımlarınız ve ödeme durumunuz',
+    total_earnings:'Toplam Kazanç',paid:'Ödendi',pending_pay:'Bekliyor',
+    commission_history:'Komisyon Geçmişi',
+    top_doctors:'En İyi Doktorlar',leaderboard_sub:'Yönlendirme performansına göre sıralama',
+    admin_dashboard:'Admin Dashboard',system_summary:'Sistem geneli özet',
+    pending_approvals:'Bekleyen Onaylar',new_leads:'Yeni Leadler',
+    all:'Tümü',pending:'Bekleyen',approved:'Onaylı',rejected:'Reddedilen',
+    status_new:'Yeni',status_quoted:'Teklifli',status_treated:'Tedavi',
+    doctor_ranking:'Doktor Sıralaması',notifications:'Bildirimler',
+    doctor_detail:'Doktor Detayı',patient_detail:'Hasta Detayı',
+    th_patient:'Hasta',th_date:'Tarih',th_status:'Durum',th_offer:'Teklif',
+    th_contact:'İletişim',th_commission:'Komisyon',th_doctor:'Doktor',
+    th_dept:'AI Bölüm',th_type:'Tür',th_amount:'Tutar',th_score:'Puan',
+    // dynamic texts
+    stat_total_patients:'Toplam Hasta',stat_quoted:'Teklif Verilen',stat_treated:'Tedavi Olan',
+    stat_earnings:'Toplam Kazanç',stat_total_doctors:'Toplam Doktor',stat_pending:'Onay Bekleyen',
+    stat_total_leads:'Toplam Lead',stat_revenue:'Toplam Gelir',stat_commission:'Toplam Komisyon',
+    stat_lead_fee:'Lead Ücreti',stat_bonus:'Tedavi Bonusu',stat_paid:'Ödenen',stat_pending2:'Bekleyen',
+    btn_view:'Görüntüle',btn_detail:'Detay',btn_review:'İncele',btn_approve:'Onayla',btn_reject:'Reddet',
+    btn_close:'Kapat',btn_send_offer:'Teklif Gönder',btn_treatment_done:'✅ Tedavi Yapıldı & Ödeme Alındı',
+    btn_pay:'Öde',btn_pdf:'📄 PDF İndir',
+    lead_fee_label:'Lead Ücreti',bonus_label:'Tedavi Bonusu',
+    status_pending:'Bekliyor',status_approved:'Onaylı',status_rejected:'Reddedildi',
+    status_new2:'Yeni',status_reviewed:'İncelendi',status_quoted2:'Teklifli',status_treated2:'Tedavi Oldu',
+    paid_label:'Ödendi',unpaid_label:'Bekliyor',
+    ai_analyzing:'🤖 AI analiz yapıyor, lütfen bekleyin...',
+    patient_added:'✅ Hasta başarıyla eklendi. Admin bildirim aldı.',
+    ai_unavailable:'AI analiz geçici olarak kullanılamıyor.',
+    no_patients:'Henüz hasta yönlendirmediniz',no_records:'Kayıt bulunamadı',
+    no_commissions:'Komisyon kaydı yok',no_notifications:'Bildirim yok',no_pending:'Bekleyen başvuru yok',no_leads:'Yeni lead yok',
+    price_offer_label:'FİYAT TEKLİFİ',enter_price:'Fiyat teklifi gir',price_placeholder:'USD cinsinden',
+    treatment_complete:'Tedavi Tamamlandı',revenue_label:'Alınan Gelir',revenue_placeholder:'Alınan gelir (USD)',
+    treatment_alert:'Tedavi kaydedildi! %10 bonus komisyon otomatik hesaplandı.',
+    offer_alert:'Fiyat teklifi gönderildi! Doktor bildirim aldı.',
+    missing_fields:'Ad, soyad ve hastalık detayı zorunludur',
+    no_data_found:'Hasta bulunamadı',points:'puan',
+    leaderboard_title:'🏆 Doktor Sıralaması',no_ranking:'Henüz sıralama yok',
+  },
+  en:{
+    subtitle:'Doctor Referral & Patient Management System',
+    doctor_login:'Doctor Login',admin_login:'Admin Login',register:'Register',
+    email:'Email',password:'Password',login_btn:'Sign In',
+    first_name:'First Name',last_name:'Last Name',phone:'Phone',specialty:'Specialty',
+    address:'Address',certificate:'Upload Certificate',cert_hint:'📎 Click to upload certificate',
+    send_app:'Submit Application',logout:'Logout',
+    doctor_panel:'Doctor Panel',admin_panel:'Admin Panel',
+    nav_dashboard:'Dashboard',nav_patients:'My Patients',nav_new_patient:'New Patient',
+    nav_wallet:'Wallet',nav_leaderboard:'Rankings',nav_doctors:'Doctors',
+    nav_leads:'Patient Leads',nav_commissions:'Commissions',
+    welcome:'Welcome Back',dashboard_sub:'Your patient referral summary',
+    recent_patients:'Recent Patients',all_referrals:'All Referrals',
+    new_patient_title:'New Patient Referral',new_patient_sub:'Enter patient info, AI analysis report will be generated',
+    height:'Height (cm)',weight:'Weight (kg)',disease_detail:'Disease Detail / Complaints',
+    upload_docs:'Upload Documents (Tests, Reports, Imaging)',
+    upload_hint:'📎 PDF, JPEG, PNG — multiple files supported',
+    ai_submit:'AI Analyze & Submit',
+    wallet_sub:'Your earnings and payment status',
+    total_earnings:'Total Earnings',paid:'Paid',pending_pay:'Pending',
+    commission_history:'Commission History',
+    top_doctors:'Top Doctors',leaderboard_sub:'Ranking by referral performance',
+    admin_dashboard:'Admin Dashboard',system_summary:'System-wide summary',
+    pending_approvals:'Pending Approvals',new_leads:'New Leads',
+    all:'All',pending:'Pending',approved:'Approved',rejected:'Rejected',
+    status_new:'New',status_quoted:'Quoted',status_treated:'Treated',
+    doctor_ranking:'Doctor Rankings',notifications:'Notifications',
+    doctor_detail:'Doctor Detail',patient_detail:'Patient Detail',
+    th_patient:'Patient',th_date:'Date',th_status:'Status',th_offer:'Quote',
+    th_contact:'Contact',th_commission:'Commission',th_doctor:'Doctor',
+    th_dept:'AI Dept.',th_type:'Type',th_amount:'Amount',th_score:'Score',
+    stat_total_patients:'Total Patients',stat_quoted:'Quoted',stat_treated:'Treated',
+    stat_earnings:'Total Earnings',stat_total_doctors:'Total Doctors',stat_pending:'Pending Approval',
+    stat_total_leads:'Total Leads',stat_revenue:'Total Revenue',stat_commission:'Total Commission',
+    stat_lead_fee:'Lead Fee',stat_bonus:'Treatment Bonus',stat_paid:'Paid',stat_pending2:'Pending',
+    btn_view:'View',btn_detail:'Detail',btn_review:'Review',btn_approve:'Approve',btn_reject:'Reject',
+    btn_close:'Close',btn_send_offer:'Send Quote',btn_treatment_done:'✅ Treatment Done & Payment Received',
+    btn_pay:'Pay',btn_pdf:'📄 Download PDF',
+    lead_fee_label:'Lead Fee',bonus_label:'Treatment Bonus',
+    status_pending:'Pending',status_approved:'Approved',status_rejected:'Rejected',
+    status_new2:'New',status_reviewed:'Reviewed',status_quoted2:'Quoted',status_treated2:'Treated',
+    paid_label:'Paid',unpaid_label:'Pending',
+    ai_analyzing:'🤖 AI is analyzing, please wait...',
+    patient_added:'✅ Patient successfully added. Admin notified.',
+    ai_unavailable:'AI analysis temporarily unavailable.',
+    no_patients:'No patients referred yet',no_records:'No records found',
+    no_commissions:'No commission records',no_notifications:'No notifications',no_pending:'No pending applications',no_leads:'No new leads',
+    price_offer_label:'PRICE QUOTE',enter_price:'Enter price quote',price_placeholder:'Amount in USD',
+    treatment_complete:'Treatment Completed',revenue_label:'Revenue Received',revenue_placeholder:'Amount received (USD)',
+    treatment_alert:'Treatment recorded! 10% bonus commission calculated automatically.',
+    offer_alert:'Quote sent! Doctor has been notified.',
+    missing_fields:'Name, surname and disease detail are required',
+    no_data_found:'No patients found',points:'pts',
+    leaderboard_title:'🏆 Doctor Rankings',no_ranking:'No rankings yet',
+  },
+  fr:{
+    subtitle:'Système de Référence Médecin & Gestion des Patients',
+    doctor_login:'Connexion Médecin',admin_login:'Connexion Admin',register:"S'inscrire",
+    email:'E-mail',password:'Mot de passe',login_btn:'Se connecter',
+    first_name:'Prénom',last_name:'Nom',phone:'Téléphone',specialty:'Spécialité',
+    address:'Adresse',certificate:'Télécharger le certificat',cert_hint:'📎 Cliquez pour télécharger',
+    send_app:'Envoyer la candidature',logout:'Déconnexion',
+    doctor_panel:'Panneau Médecin',admin_panel:'Panneau Admin',
+    nav_dashboard:'Tableau de bord',nav_patients:'Mes patients',nav_new_patient:'Nouveau patient',
+    nav_wallet:'Portefeuille',nav_leaderboard:'Classement',nav_doctors:'Médecins',
+    nav_leads:'Leads Patients',nav_commissions:'Commissions',
+    welcome:'Bienvenue',dashboard_sub:'Résumé de vos références de patients',
+    recent_patients:'Patients récents',all_referrals:'Toutes les références',
+    new_patient_title:'Nouvelle référence patient',new_patient_sub:"Entrez les informations du patient, un rapport d'analyse IA sera généré",
+    height:'Taille (cm)',weight:'Poids (kg)',disease_detail:'Détail de la maladie / Plaintes',
+    upload_docs:'Télécharger des documents (Tests, Rapports, Imagerie)',
+    upload_hint:'📎 PDF, JPEG, PNG — plusieurs fichiers supportés',
+    ai_submit:'Analyser par IA & Soumettre',
+    wallet_sub:'Vos gains et statut de paiement',
+    total_earnings:'Gains totaux',paid:'Payé',pending_pay:'En attente',
+    commission_history:'Historique des commissions',
+    top_doctors:'Meilleurs Médecins',leaderboard_sub:'Classement selon les performances',
+    admin_dashboard:'Tableau de bord Admin',system_summary:'Résumé du système',
+    pending_approvals:'Approbations en attente',new_leads:'Nouveaux leads',
+    all:'Tous',pending:'En attente',approved:'Approuvé',rejected:'Rejeté',
+    status_new:'Nouveau',status_quoted:'Devisé',status_treated:'Traité',
+    doctor_ranking:'Classement Médecins',notifications:'Notifications',
+    doctor_detail:'Détail Médecin',patient_detail:'Détail Patient',
+    th_patient:'Patient',th_date:'Date',th_status:'Statut',th_offer:'Devis',
+    th_contact:'Contact',th_commission:'Commission',th_doctor:'Médecin',
+    th_dept:'Dépt. IA',th_type:'Type',th_amount:'Montant',th_score:'Score',
+    stat_total_patients:'Total Patients',stat_quoted:'Devisés',stat_treated:'Traités',
+    stat_earnings:'Gains totaux',stat_total_doctors:'Total Médecins',stat_pending:'En attente',
+    stat_total_leads:'Total Leads',stat_revenue:'Revenu total',stat_commission:'Total Commissions',
+    stat_lead_fee:'Frais de lead',stat_bonus:'Bonus traitement',stat_paid:'Payé',stat_pending2:'En attente',
+    btn_view:'Voir',btn_detail:'Détail',btn_review:'Examiner',btn_approve:'Approuver',btn_reject:'Rejeter',
+    btn_close:'Fermer',btn_send_offer:'Envoyer le devis',btn_treatment_done:'✅ Traitement effectué & Paiement reçu',
+    btn_pay:'Payer',btn_pdf:'📄 Télécharger PDF',
+    lead_fee_label:'Frais de lead',bonus_label:'Bonus traitement',
+    status_pending:'En attente',status_approved:'Approuvé',status_rejected:'Rejeté',
+    status_new2:'Nouveau',status_reviewed:'Examiné',status_quoted2:'Devisé',status_treated2:'Traité',
+    paid_label:'Payé',unpaid_label:'En attente',
+    ai_analyzing:"🤖 L'IA analyse, veuillez patienter...",
+    patient_added:'✅ Patient ajouté avec succès. Admin notifié.',
+    ai_unavailable:"L'analyse IA est temporairement indisponible.",
+    no_patients:'Aucun patient référé',no_records:'Aucun enregistrement',
+    no_commissions:'Aucune commission',no_notifications:'Aucune notification',no_pending:'Aucune demande en attente',no_leads:'Aucun nouveau lead',
+    price_offer_label:'DEVIS',enter_price:'Entrer le devis',price_placeholder:'Montant en USD',
+    treatment_complete:'Traitement terminé',revenue_label:'Revenu reçu',revenue_placeholder:'Montant reçu (USD)',
+    treatment_alert:'Traitement enregistré! 10% de bonus calculé automatiquement.',
+    offer_alert:'Devis envoyé! Le médecin a été notifié.',
+    missing_fields:'Prénom, nom et détail de la maladie sont requis',
+    no_data_found:'Aucun patient trouvé',points:'pts',
+    leaderboard_title:'🏆 Classement Médecins',no_ranking:'Pas encore de classement',
+  }
 };
+
+function t(k){ return T[currentLang][k] || T['tr'][k] || k; }
 
 function setLang(l){
   currentLang=l;
-  // Update active button
   document.querySelectorAll('.lang-btn').forEach(b=>{
     b.classList.remove('active');
     if(b.textContent.trim()===l.toUpperCase()) b.classList.add('active');
   });
-  // Login page texts
-  if(document.getElementById('txt-subtitle')) document.getElementById('txt-subtitle').textContent=i18n[l].subtitle;
-  if(document.getElementById('tab-btn-doctor')) document.getElementById('tab-btn-doctor').textContent=i18n[l].d_login;
-  if(document.getElementById('tab-btn-admin')) document.getElementById('tab-btn-admin').textContent=i18n[l].a_login;
-  if(document.getElementById('tab-btn-register')) document.getElementById('tab-btn-register').textContent=i18n[l].reg;
-
-  // Sidebar labels
-  const sidebarMap={
-    tr:{dashboard:'Özet',my_patients:'Hastalarım',new_patient:'Yeni Hasta',wallet:'Cüzdan',leaderboard:'Sıralama',doctors:'Doktorlar',leads:'Hasta Leadleri',commissions:'Komisyonlar'},
-    en:{dashboard:'Dashboard',my_patients:'My Patients',new_patient:'New Patient',wallet:'Wallet',leaderboard:'Leaderboard',doctors:'Doctors',leads:'Patient Leads',commissions:'Commissions'},
-    fr:{dashboard:'Tableau de bord',my_patients:'Mes patients',new_patient:'Nouveau patient',wallet:'Portefeuille',leaderboard:'Classement',doctors:'Médecins',leads:'Leads Patients',commissions:'Commissions'}
-  };
-  // Page headers
-  const headerMap={
-    'doc-dashboard':{tr:'Hoş Geldiniz',en:'Welcome Back',fr:'Bienvenue'},
-    'adm-dashboard':{tr:'Admin Dashboard',en:'Admin Dashboard',fr:'Tableau de bord Admin'},
-    'doc-patients':{tr:'Hastalarım',en:'My Patients',fr:'Mes patients'},
-    'doc-new-patient':{tr:'Yeni Hasta Yönlendirme',en:'New Patient Referral',fr:'Nouvelle référence patient'},
-    'doc-wallet':{tr:'Cüzdan',en:'Wallet',fr:'Portefeuille'},
-    'doc-leaderboard':{tr:'En İyi Doktorlar',en:'Top Doctors',fr:'Meilleurs Médecins'},
-    'adm-doctors':{tr:'Doktorlar',en:'Doctors',fr:'Médecins'},
-    'adm-leads':{tr:'Hasta Leadleri',en:'Patient Leads',fr:'Leads Patients'},
-    'adm-commissions':{tr:'Komisyon Yönetimi',en:'Commission Management',fr:'Gestion des Commissions'},
-    'adm-leaderboard':{tr:'Doktor Sıralaması',en:'Doctor Rankings',fr:'Classement Médecins'},
-  };
-  Object.keys(headerMap).forEach(pageId=>{
-    const page=document.getElementById('page-'+pageId);
-    if(page){
-      const h2=page.querySelector('h2');
-      if(h2) h2.textContent=headerMap[pageId][l]||headerMap[pageId].tr;
-    }
+  // Apply all data-i18n elements
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k=el.getAttribute('data-i18n');
+    const v=T[l][k];
+    if(v) el.textContent=v;
   });
-  // Logout button
-  const logoutBtn=document.getElementById('logout-btn');
-  if(logoutBtn) logoutBtn.innerHTML={tr:'⬅ Çıkış',en:'⬅ Logout',fr:'⬅ Déconnexion'}[l];
+  // Reload current page to refresh dynamic content
+  const activePage=document.querySelector('.page:not(.hidden)');
+  if(activePage){
+    const pageId=activePage.id.replace('page-','');
+    const loaders={
+      'doc-dashboard':loadDoctorDashboard,'doc-patients':loadDocPatients,
+      'doc-wallet':loadWallet,'doc-leaderboard':()=>loadLeaderboard('doc'),
+      'adm-dashboard':loadAdminDashboard,'adm-doctors':loadAdminDoctors,
+      'adm-leads':loadAdminLeads,'adm-commissions':loadAdminCommissions,
+      'adm-leaderboard':()=>loadLeaderboard('adm')
+    };
+    if(loaders[pageId]) loaders[pageId]();
+  }
 }
 
 window.addEventListener('DOMContentLoaded',()=>{
@@ -438,12 +584,12 @@ function switchLoginTab(tab){
 async function doctorLogin(){
   const email=document.getElementById('doc-login-email').value.trim();
   const pass=document.getElementById('doc-login-pass').value;
-  if(!email||!pass){showMsg('login-msg','E-posta ve şifre gerekli','error');return}
+  if(!email||!pass){showMsg('login-msg',t('missing_fields'),'error');return}
   const {data,error}=await sb.from('doctors').select('*').eq('email',email).single();
-  if(error||!data){showMsg('login-msg','Doktor bulunamadı','error');return}
-  if(data.password_hash!==btoa(pass)){showMsg('login-msg','Şifre hatalı','error');return}
-  if(data.status==='pending'){showMsg('login-msg','Başvurunuz admin onayı bekliyor','error');return}
-  if(data.status==='rejected'){showMsg('login-msg','Başvurunuz reddedildi','error');return}
+  if(error||!data){showMsg('login-msg','Doktor bulunamadı / Doctor not found','error');return}
+  if(data.password_hash!==btoa(pass)){showMsg('login-msg','Şifre hatalı / Wrong password','error');return}
+  if(data.status==='pending'){showMsg('login-msg','Başvurunuz onay bekliyor / Application pending approval','error');return}
+  if(data.status==='rejected'){showMsg('login-msg','Başvurunuz reddedildi / Application rejected','error');return}
   currentDoctor=data;currentRole='doctor';enterApp();
 }
 
@@ -451,7 +597,7 @@ async function adminLogin(){
   const email=document.getElementById('adm-login-email').value.trim();
   const pass=document.getElementById('adm-login-pass').value;
   if(email===ADMIN_EMAIL&&pass===ADMIN_PASS){currentRole='admin';enterApp();}
-  else showMsg('login-msg','Admin bilgileri hatalı','error');
+  else showMsg('login-msg','Admin bilgileri hatalı / Wrong admin credentials','error');
 }
 
 async function registerDoctor(){
@@ -462,7 +608,7 @@ async function registerDoctor(){
   const specialty=document.getElementById('reg-specialty').value.trim();
   const address=document.getElementById('reg-address').value.trim();
   const pass=document.getElementById('reg-pass').value;
-  if(!first||!last||!email||!pass){showMsg('login-msg','Zorunlu alanları doldurun','error');return}
+  if(!first||!last||!email||!pass){showMsg('login-msg',t('missing_fields'),'error');return}
   let certUrl='';
   if(certFile){
     const fname='certs/'+Date.now()+'_'+certFile.name;
@@ -472,7 +618,7 @@ async function registerDoctor(){
   const {error}=await sb.from('doctors').insert([{first_name:first,last_name:last,email,phone,specialty,address,certificate_url:certUrl,status:'pending',password_hash:btoa(pass)}]);
   if(error){showMsg('login-msg',error.message,'error');return}
   await sb.from('notifications').insert([{target:'admin',message:'Yeni doktor başvurusu: Dr. '+first+' '+last}]);
-  showMsg('login-msg','Başvurunuz alındı! Admin onayından sonra giriş yapabilirsiniz.','success');
+  showMsg('login-msg',t('patient_added').includes('Hasta')?'Başvurunuz alındı! Admin onayından sonra giriş yapabilirsiniz.':'Application received! You can login after admin approval.','success');
 }
 
 function enterApp(){
@@ -493,6 +639,8 @@ function enterApp(){
     showPage('doc-dashboard');
   }
   loadNotifications();
+  // Apply current language to all elements
+  setLang(currentLang);
 }
 
 function logout(){
@@ -526,43 +674,52 @@ async function loadDoctorDashboard(){
   const total=patients.length,quoted=patients.filter(p=>p.price_offer).length,treated=patients.filter(p=>p.treatment_done).length;
   const earned=patients.flatMap(p=>p.commissions||[]).reduce((s,c)=>s+parseFloat(c.amount||0),0);
   document.getElementById('doc-stats').innerHTML=`
-    <div class="stat-card"><div class="stat-value">${total}</div><div class="stat-label">Toplam Hasta</div></div>
-    <div class="stat-card gold"><div class="stat-value">${quoted}</div><div class="stat-label">Teklif Verilen</div></div>
-    <div class="stat-card green"><div class="stat-value">${treated}</div><div class="stat-label">Tedavi Olan</div></div>
-    <div class="stat-card red"><div class="stat-value">$${earned.toFixed(2)}</div><div class="stat-label">Toplam Kazanç</div></div>`;
-  const tbody=document.getElementById('doc-recent-body');
+    <div class="stat-card"><div class="stat-value">${total}</div><div class="stat-label">${t('stat_total_patients')}</div></div>
+    <div class="stat-card gold"><div class="stat-value">${quoted}</div><div class="stat-label">${t('stat_quoted')}</div></div>
+    <div class="stat-card green"><div class="stat-value">${treated}</div><div class="stat-label">${t('stat_treated')}</div></div>
+    <div class="stat-card red"><div class="stat-value">$${earned.toFixed(2)}</div><div class="stat-label">${t('stat_earnings')}</div></div>`;
   const recent=[...patients].reverse().slice(0,5);
-  tbody.innerHTML=recent.length?recent.map(p=>`<tr><td><strong>${p.first_name} ${p.last_name}</strong></td><td>${fmtDate(p.created_at)}</td><td>${statusBadge(p.status)}</td><td>${p.price_offer?'$'+p.price_offer:'—'}</td><td><button class="btn btn-outline btn-sm" onclick="viewPatient('${p.id}')">Görüntüle</button></td></tr>`).join(''):'<tr><td colspan="5" style="text-align:center;padding:24px;color:var(--muted)">Henüz hasta yönlendirmediniz</td></tr>';
+  document.getElementById('doc-recent-body').innerHTML=recent.length?recent.map(p=>`
+    <tr><td><strong>${p.first_name} ${p.last_name}</strong></td><td>${fmtDate(p.created_at)}</td>
+    <td>${statusBadge(p.status)}</td><td>${p.price_offer?'$'+p.price_offer:'—'}</td>
+    <td><button class="btn btn-outline btn-sm" onclick="viewPatient('${p.id}')">${t('btn_view')}</button></td></tr>`).join('')
+    :`<tr><td colspan="5" style="text-align:center;padding:24px;color:var(--muted)">${t('no_patients')}</td></tr>`;
 }
 
 async function loadDocPatients(){
   const {data:patients}=await sb.from('patients').select('*,commissions(*)').eq('doctor_id',currentDoctor.id).order('created_at',{ascending:false});
   const tbody=document.getElementById('doc-patients-body');
-  if(!patients||!patients.length){tbody.innerHTML='<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--muted)">Hasta bulunamadı</td></tr>';return}
+  if(!patients||!patients.length){tbody.innerHTML=`<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--muted)">${t('no_data_found')}</td></tr>`;return}
   tbody.innerHTML=patients.map(p=>{
     const comm=(p.commissions||[]).reduce((s,c)=>s+parseFloat(c.amount||0),0);
-    return`<tr><td><strong>${p.first_name} ${p.last_name}</strong></td><td>${p.phone||p.email||'—'}</td><td>${fmtDate(p.created_at)}</td><td>${statusBadge(p.status)}</td><td>${p.price_offer?'$'+p.price_offer:'—'}</td><td>$${comm.toFixed(2)}</td><td><button class="btn btn-outline btn-sm" onclick="viewPatient('${p.id}')">Detay</button></td></tr>`;
+    return`<tr><td><strong>${p.first_name} ${p.last_name}</strong></td><td>${p.phone||p.email||'—'}</td>
+    <td>${fmtDate(p.created_at)}</td><td>${statusBadge(p.status)}</td>
+    <td>${p.price_offer?'$'+p.price_offer:'—'}</td><td>$${comm.toFixed(2)}</td>
+    <td><button class="btn btn-outline btn-sm" onclick="viewPatient('${p.id}')">${t('btn_detail')}</button></td></tr>`;
   }).join('');
 }
 
 function handleCertUpload(input){if(input.files[0]){certFile=input.files[0];document.getElementById('reg-cert-label').textContent='✅ '+certFile.name;}}
 function handlePatientFiles(input){patientFiles=[...patientFiles,...Array.from(input.files)];renderPatientFiles();}
 function renderPatientFiles(){
-  document.getElementById('p-files-list').innerHTML=patientFiles.map((f,i)=>`<div class="file-item"><span>📄 ${f.name}</span><button class="btn btn-outline btn-sm" onclick="removeFile(${i})">✕</button></div>`).join('');
+  document.getElementById('p-files-list').innerHTML=patientFiles.map((f,i)=>`
+    <div class="file-item"><span>📄 ${f.name}</span><button class="btn btn-outline btn-sm" onclick="removeFile(${i})">✕</button></div>`).join('');
 }
 function removeFile(i){patientFiles.splice(i,1);renderPatientFiles();}
 
 async function submitPatient(){
   const first=document.getElementById('p-first').value.trim();
   const last=document.getElementById('p-last').value.trim();
-  const phoneCode=document.getElementById('p-phone-code')?.value||'';const phoneNum=document.getElementById('p-phone').value.trim();const phone=phoneCode+' '+phoneNum;
+  const phoneCode=document.getElementById('p-phone-code')?.value||'';
+  const phoneNum=document.getElementById('p-phone').value.trim();
+  const phone=phoneCode+' '+phoneNum;
   const email=document.getElementById('p-email').value.trim();
   const address=document.getElementById('p-address').value.trim();
   const height=document.getElementById('p-height').value;
   const weight=document.getElementById('p-weight').value;
   const disease=document.getElementById('p-disease').value.trim();
-  if(!first||!last||!disease){showMsg('new-patient-msg','Ad, soyad ve hastalık detayı zorunludur','error');return}
-  showMsg('new-patient-msg','🤖 AI analiz yapıyor, lütfen bekleyin...','info');
+  if(!first||!last||!disease){showMsg('new-patient-msg',t('missing_fields'),'error');return}
+  showMsg('new-patient-msg',t('ai_analyzing'),'info');
   let aiReport='',aiDept='';
   try{
     const res=await fetch(CLAUDE_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1000,messages:[{role:'user',content:`Sen Memorial Hospital'ın uzman tıbbi danışmanısın. Hasta: ${first} ${last}, Boy: ${height||'?'}cm, Kilo: ${weight||'?'}kg. Şikayet: ${disease}\n\nŞu başlıklarda Türkçe rapor yaz:\n1. GENEL DEĞERLENDİRME\n2. OLASI TANI\n3. ÖNERİLEN BÖLÜM (sadece bölüm adı)\n4. ACİLİYET DURUMU\n5. ÖNERİLEN TESTLER\n6. ÖZEL NOTLAR`}]})});
@@ -572,7 +729,7 @@ async function submitPatient(){
       const m=aiReport.match(/ÖNERİLEN BÖLÜM[:\s*]+([^\n]+)/);
       aiDept=m?m[1].replace(/\*\*/g,'').trim():'Genel Değerlendirme';
     }
-  }catch(e){aiReport='AI analiz geçici olarak kullanılamıyor.';aiDept='Belirsiz';}
+  }catch(e){aiReport=t('ai_unavailable');aiDept='—';}
   let docUrls=[];
   for(const f of patientFiles){
     const fname='patients/'+Date.now()+'_'+f.name;
@@ -588,14 +745,14 @@ async function submitPatient(){
   showMsg('new-patient-msg','','');
   document.getElementById('ai-report-preview').innerHTML=`
     <div class="ai-report-box" style="margin-top:16px">
-      <div class="ai-report-header">🤖 AI Analiz Raporu</div>
+      <div class="ai-report-header">🤖 AI ${t('patient_detail').includes('Détail')?'Rapport':'Rapor'}</div>
       <div style="background:#fff;border-radius:8px;padding:14px;font-size:13px;line-height:1.7;white-space:pre-wrap;max-height:300px;overflow-y:auto">${aiReport}</div>
       <div style="margin-top:12px;display:flex;gap:10px;align-items:center">
         <span style="background:var(--primary);color:#fff;padding:6px 14px;border-radius:6px;font-size:13px;font-weight:700">🏥 ${aiDept}</span>
-        <button class="btn btn-accent btn-sm" onclick="downloadPDF('${patient.id}')">📄 PDF İndir</button>
+        <button class="btn btn-accent btn-sm" onclick="downloadPDF('${patient.id}')">${t('btn_pdf')}</button>
       </div>
     </div>
-    <div class="msg msg-success" style="margin-top:12px">✅ Hasta başarıyla eklendi. Admin bildirim aldı.</div>`;
+    <div class="msg msg-success" style="margin-top:12px">${t('patient_added')}</div>`;
   ['p-first','p-last','p-phone','p-email','p-address','p-height','p-weight','p-disease'].forEach(id=>document.getElementById(id).value='');
   patientFiles=[];renderPatientFiles();
 }
@@ -610,26 +767,32 @@ async function loadWallet(){
   document.getElementById('wallet-pending').textContent='$'+(total-paid).toFixed(2);
   const leads=comms.filter(c=>c.type==='lead_fee').length,bonuses=comms.filter(c=>c.type==='treatment_bonus').length;
   document.getElementById('wallet-stats').innerHTML=`
-    <div class="stat-card"><div class="stat-value">${leads}</div><div class="stat-label">Lead Ücreti (${leads}x$40)</div></div>
-    <div class="stat-card gold"><div class="stat-value">${bonuses}</div><div class="stat-label">Tedavi Bonusu (%10)</div></div>
-    <div class="stat-card green"><div class="stat-value">$${paid.toFixed(2)}</div><div class="stat-label">Ödenen</div></div>
-    <div class="stat-card red"><div class="stat-value">$${(total-paid).toFixed(2)}</div><div class="stat-label">Bekleyen</div></div>`;
-  document.getElementById('wallet-table-body').innerHTML=comms.length?comms.map(c=>`<tr><td>${c.patients?c.patients.first_name+' '+c.patients.last_name:'—'}</td><td>${c.type==='lead_fee'?'Lead Ücreti':'Tedavi Bonusu'}</td><td><strong>$${parseFloat(c.amount).toFixed(2)}</strong></td><td>${fmtDate(c.created_at)}</td><td><span class="badge ${c.paid?'badge-approved':'badge-pending'}">${c.paid?'Ödendi':'Bekliyor'}</span></td></tr>`).join(''):'<tr><td colspan="5" style="text-align:center;padding:24px;color:var(--muted)">Komisyon kaydı yok</td></tr>';
+    <div class="stat-card"><div class="stat-value">${leads}</div><div class="stat-label">${t('stat_lead_fee')} (${leads}×$40)</div></div>
+    <div class="stat-card gold"><div class="stat-value">${bonuses}</div><div class="stat-label">${t('stat_bonus')} (10%)</div></div>
+    <div class="stat-card green"><div class="stat-value">$${paid.toFixed(2)}</div><div class="stat-label">${t('stat_paid')}</div></div>
+    <div class="stat-card red"><div class="stat-value">$${(total-paid).toFixed(2)}</div><div class="stat-label">${t('stat_pending2')}</div></div>`;
+  document.getElementById('wallet-table-body').innerHTML=comms.length?comms.map(c=>`
+    <tr><td>${c.patients?c.patients.first_name+' '+c.patients.last_name:'—'}</td>
+    <td>${c.type==='lead_fee'?t('lead_fee_label'):t('bonus_label')}</td>
+    <td><strong>$${parseFloat(c.amount).toFixed(2)}</strong></td>
+    <td>${fmtDate(c.created_at)}</td>
+    <td><span class="badge ${c.paid?'badge-approved':'badge-pending'}">${c.paid?t('paid_label'):t('unpaid_label')}</span></td></tr>`).join('')
+    :`<tr><td colspan="5" style="text-align:center;padding:24px;color:var(--muted)">${t('no_commissions')}</td></tr>`;
 }
 
 async function loadLeaderboard(role){
   const {data:docs}=await sb.from('doctors').select('*').eq('status','approved').order('score',{ascending:false});
   const cont=document.getElementById(role==='doc'?'leaderboard-content':'adm-leaderboard-content');
-  if(!docs||!docs.length){cont.innerHTML='<div class="empty-state"><div class="empty-state-icon">🏆</div><h3>Henüz sıralama yok</h3></div>';return}
-  cont.innerHTML=`<div class="card-header"><span class="card-title">🏆 Doktor Sıralaması</span></div>`+docs.map((d,i)=>`
+  if(!docs||!docs.length){cont.innerHTML=`<div style="text-align:center;padding:48px;color:var(--muted)">${t('no_ranking')}</div>`;return}
+  cont.innerHTML=`<div class="card-header"><span class="card-title">${t('leaderboard_title')}</span></div>`+docs.map((d,i)=>`
     <div class="leader-item">
       <div class="leader-rank ${i===0?'rank-1':i===1?'rank-2':i===2?'rank-3':'rank-other'}">${i+1}</div>
       <div class="leader-info">
         <div class="leader-name">Dr. ${d.first_name} ${d.last_name}</div>
-        <div class="leader-meta">${d.specialty||'Genel'} • ${d.email}</div>
+        <div class="leader-meta">${d.specialty||'—'} • ${d.email}</div>
         <div class="progress-bar"><div class="progress-fill" style="width:${Math.min(100,(d.score/(docs[0].score||1))*100)}%"></div></div>
       </div>
-      <div class="leader-score">${d.score} <small style="font-size:11px;color:var(--muted)">puan</small></div>
+      <div class="leader-score">${d.score} <small style="font-size:11px;color:var(--muted)">${t('points')}</small></div>
     </div>`).join('');
 }
 
@@ -638,23 +801,23 @@ async function loadAdminDashboard(){
   const totalRev=(pats||[]).filter(p=>p.treatment_revenue).reduce((s,p)=>s+parseFloat(p.treatment_revenue||0),0);
   const totalComm=(comms||[]).reduce((s,c)=>s+parseFloat(c.amount||0),0);
   document.getElementById('adm-stats').innerHTML=`
-    <div class="stat-card"><div class="stat-value">${(docs||[]).length}</div><div class="stat-label">Toplam Doktor</div></div>
-    <div class="stat-card gold"><div class="stat-value">${(docs||[]).filter(d=>d.status==='pending').length}</div><div class="stat-label">Onay Bekleyen</div></div>
-    <div class="stat-card"><div class="stat-value">${(pats||[]).length}</div><div class="stat-label">Toplam Lead</div></div>
-    <div class="stat-card green"><div class="stat-value">$${totalRev.toFixed(0)}</div><div class="stat-label">Toplam Gelir</div></div>
-    <div class="stat-card red"><div class="stat-value">$${totalComm.toFixed(0)}</div><div class="stat-label">Toplam Komisyon</div></div>`;
+    <div class="stat-card"><div class="stat-value">${(docs||[]).length}</div><div class="stat-label">${t('stat_total_doctors')}</div></div>
+    <div class="stat-card gold"><div class="stat-value">${(docs||[]).filter(d=>d.status==='pending').length}</div><div class="stat-label">${t('stat_pending')}</div></div>
+    <div class="stat-card"><div class="stat-value">${(pats||[]).length}</div><div class="stat-label">${t('stat_total_leads')}</div></div>
+    <div class="stat-card green"><div class="stat-value">$${totalRev.toFixed(0)}</div><div class="stat-label">${t('stat_revenue')}</div></div>
+    <div class="stat-card red"><div class="stat-value">$${totalComm.toFixed(0)}</div><div class="stat-label">${t('stat_commission')}</div></div>`;
   const pending=(docs||[]).filter(d=>d.status==='pending');
   document.getElementById('adm-pending-doctors').innerHTML=pending.length?pending.map(d=>`
     <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)">
       <div><div style="font-weight:700;font-size:13px">Dr. ${d.first_name} ${d.last_name}</div><div style="font-size:12px;color:var(--muted)">${d.specialty||''} • ${d.email}</div></div>
-      <div style="display:flex;gap:6px"><button class="btn btn-success btn-sm" onclick="approveDoctor('${d.id}')">Onayla</button><button class="btn btn-danger btn-sm" onclick="rejectDoctor('${d.id}')">Reddet</button></div>
-    </div>`).join(''):'<div style="padding:16px;text-align:center;color:var(--muted);font-size:13px">Bekleyen başvuru yok</div>';
+      <div style="display:flex;gap:6px"><button class="btn btn-success btn-sm" onclick="approveDoctor('${d.id}')">${t('btn_approve')}</button><button class="btn btn-danger btn-sm" onclick="rejectDoctor('${d.id}')">${t('btn_reject')}</button></div>
+    </div>`).join(''):`<div style="padding:16px;text-align:center;color:var(--muted);font-size:13px">${t('no_pending')}</div>`;
   const newLeads=(pats||[]).filter(p=>p.status==='new').slice(0,5);
   document.getElementById('adm-new-leads').innerHTML=newLeads.length?newLeads.map(p=>`
     <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border)">
       <div><div style="font-weight:700;font-size:13px">${p.first_name} ${p.last_name}</div><div style="font-size:12px;color:var(--muted)">${p.ai_department||'—'} • ${fmtDate(p.created_at)}</div></div>
-      <button class="btn btn-primary btn-sm" onclick="viewPatient('${p.id}')">İncele</button>
-    </div>`).join(''):'<div style="padding:16px;text-align:center;color:var(--muted);font-size:13px">Yeni lead yok</div>';
+      <button class="btn btn-primary btn-sm" onclick="viewPatient('${p.id}')">${t('btn_review')}</button>
+    </div>`).join(''):`<div style="padding:16px;text-align:center;color:var(--muted);font-size:13px">${t('no_leads')}</div>`;
 }
 
 let doctorFilter='all';
@@ -670,17 +833,13 @@ function filterDoctors(f){
 function renderDoctors(){
   const filtered=doctorFilter==='all'?allDoctors:allDoctors.filter(d=>d.status===doctorFilter);
   document.getElementById('adm-doctors-body').innerHTML=filtered.length?filtered.map(d=>`
-    <tr>
-      <td><strong>Dr. ${d.first_name} ${d.last_name}</strong></td>
-      <td>${d.specialty||'—'}</td>
-      <td>${d.email}<br><small style="color:var(--muted)">${d.phone||''}</small></td>
-      <td>${statusBadge(d.status)}</td>
-      <td>${d.score||0}</td>
-      <td style="display:flex;gap:4px;flex-wrap:wrap">
-        <button class="btn btn-outline btn-sm" onclick="viewDoctor('${d.id}')">Detay</button>
-        ${d.status==='pending'?`<button class="btn btn-success btn-sm" onclick="approveDoctor('${d.id}')">Onayla</button><button class="btn btn-danger btn-sm" onclick="rejectDoctor('${d.id}')">Reddet</button>`:''}
-      </td>
-    </tr>`).join(''):'<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--muted)">Kayıt bulunamadı</td></tr>';
+    <tr><td><strong>Dr. ${d.first_name} ${d.last_name}</strong></td><td>${d.specialty||'—'}</td>
+    <td>${d.email}<br><small style="color:var(--muted)">${d.phone||''}</small></td>
+    <td>${statusBadge(d.status)}</td><td>${d.score||0}</td>
+    <td style="display:flex;gap:4px;flex-wrap:wrap">
+      <button class="btn btn-outline btn-sm" onclick="viewDoctor('${d.id}')">${t('btn_detail')}</button>
+      ${d.status==='pending'?`<button class="btn btn-success btn-sm" onclick="approveDoctor('${d.id}')">${t('btn_approve')}</button><button class="btn btn-danger btn-sm" onclick="rejectDoctor('${d.id}')">${t('btn_reject')}</button>`:''}
+    </td></tr>`).join(''):`<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--muted)">${t('no_records')}</td></tr>`;
 }
 async function approveDoctor(id){
   await sb.from('doctors').update({status:'approved'}).eq('id',id);
@@ -703,17 +862,17 @@ async function viewDoctor(id){
       ${statusBadge(doc.status)}
     </div>
     <div class="form-grid">
-      <div><label style="font-size:11px;color:var(--muted);font-weight:700">E-POSTA</label><p>${doc.email}</p></div>
-      <div><label style="font-size:11px;color:var(--muted);font-weight:700">TELEFON</label><p>${doc.phone||'—'}</p></div>
-      <div><label style="font-size:11px;color:var(--muted);font-weight:700">ADRES</label><p>${doc.address||'—'}</p></div>
-      <div><label style="font-size:11px;color:var(--muted);font-weight:700">KAYIT</label><p>${fmtDate(doc.created_at)}</p></div>
-      <div><label style="font-size:11px;color:var(--muted);font-weight:700">PUAN</label><p>${doc.score||0}</p></div>
-      <div><label style="font-size:11px;color:var(--muted);font-weight:700">HASTA SAYISI</label><p>${(pats||[]).length}</p></div>
+      <div><label style="font-size:11px;color:var(--muted);font-weight:700">${t('email').toUpperCase()}</label><p>${doc.email}</p></div>
+      <div><label style="font-size:11px;color:var(--muted);font-weight:700">${t('phone').toUpperCase()}</label><p>${doc.phone||'—'}</p></div>
+      <div><label style="font-size:11px;color:var(--muted);font-weight:700">${t('address').toUpperCase()}</label><p>${doc.address||'—'}</p></div>
+      <div><label style="font-size:11px;color:var(--muted);font-weight:700">${t('th_date').toUpperCase()}</label><p>${fmtDate(doc.created_at)}</p></div>
+      <div><label style="font-size:11px;color:var(--muted);font-weight:700">${t('th_score').toUpperCase()}</label><p>${doc.score||0}</p></div>
+      <div><label style="font-size:11px;color:var(--muted);font-weight:700">${t('stat_total_patients').toUpperCase()}</label><p>${(pats||[]).length}</p></div>
     </div>
-    ${doc.certificate_url?`<a href="${doc.certificate_url}" target="_blank" class="btn btn-outline btn-sm" style="margin-top:10px">📄 Sertifikayı Görüntüle</a>`:''}`;
+    ${doc.certificate_url?`<a href="${doc.certificate_url}" target="_blank" class="btn btn-outline btn-sm" style="margin-top:10px">📄 ${t('certificate')}</a>`:''}`;
   document.getElementById('modal-doctor-footer').innerHTML=`
-    ${doc.status==='pending'?`<button class="btn btn-success" onclick="approveDoctor('${doc.id}');closeModal('modal-doctor')">Onayla</button><button class="btn btn-danger" onclick="rejectDoctor('${doc.id}');closeModal('modal-doctor')">Reddet</button>`:''}
-    <button class="btn btn-outline" onclick="closeModal('modal-doctor')">Kapat</button>`;
+    ${doc.status==='pending'?`<button class="btn btn-success" onclick="approveDoctor('${doc.id}');closeModal('modal-doctor')">${t('btn_approve')}</button><button class="btn btn-danger" onclick="rejectDoctor('${doc.id}');closeModal('modal-doctor')">${t('btn_reject')}</button>`:''}
+    <button class="btn btn-outline" onclick="closeModal('modal-doctor')">${t('btn_close')}</button>`;
   openModal('modal-doctor');
 }
 
@@ -730,15 +889,13 @@ function filterLeads(f){
 function renderLeads(){
   const filtered=leadFilter==='all'?allLeads:allLeads.filter(p=>p.status===leadFilter);
   document.getElementById('adm-leads-body').innerHTML=filtered.length?filtered.map(p=>`
-    <tr>
-      <td><strong>${p.first_name} ${p.last_name}</strong></td>
-      <td>${p.doctors?'Dr. '+p.doctors.first_name+' '+p.doctors.last_name:'—'}</td>
-      <td><span style="font-size:12px;background:#EEF4FF;color:var(--primary);padding:3px 8px;border-radius:4px">${p.ai_department||'—'}</span></td>
-      <td>${fmtDate(p.created_at)}</td>
-      <td>${statusBadge(p.status)}</td>
-      <td>${p.price_offer?'$'+p.price_offer:'—'}</td>
-      <td><button class="btn btn-primary btn-sm" onclick="viewPatient('${p.id}')">İncele</button></td>
-    </tr>`).join(''):'<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--muted)">Kayıt bulunamadı</td></tr>';
+    <tr><td><strong>${p.first_name} ${p.last_name}</strong></td>
+    <td>${p.doctors?'Dr. '+p.doctors.first_name+' '+p.doctors.last_name:'—'}</td>
+    <td><span style="font-size:12px;background:#EEF4FF;color:var(--primary);padding:3px 8px;border-radius:4px">${p.ai_department||'—'}</span></td>
+    <td>${fmtDate(p.created_at)}</td><td>${statusBadge(p.status)}</td>
+    <td>${p.price_offer?'$'+p.price_offer:'—'}</td>
+    <td><button class="btn btn-primary btn-sm" onclick="viewPatient('${p.id}')">${t('btn_review')}</button></td></tr>`).join('')
+    :`<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--muted)">${t('no_records')}</td></tr>`;
 }
 
 async function viewPatient(id){
@@ -747,28 +904,40 @@ async function viewPatient(id){
   const isAdmin=currentRole==='admin';
   document.getElementById('modal-patient-body').innerHTML=`
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px">
-      <div><label style="font-size:11px;color:var(--muted);font-weight:700">AD SOYAD</label><p style="font-weight:700">${p.first_name} ${p.last_name}</p></div>
-      <div><label style="font-size:11px;color:var(--muted);font-weight:700">REFERANS DOKTOR</label><p>${p.doctors?'Dr. '+p.doctors.first_name+' '+p.doctors.last_name:'—'}</p></div>
-      <div><label style="font-size:11px;color:var(--muted);font-weight:700">TELEFON</label><p>${p.phone||'—'}</p></div>
-      <div><label style="font-size:11px;color:var(--muted);font-weight:700">E-POSTA</label><p>${p.email||'—'}</p></div>
-      <div><label style="font-size:11px;color:var(--muted);font-weight:700">BOY / KİLO</label><p>${p.height||'?'} cm / ${p.weight||'?'} kg</p></div>
-      <div><label style="font-size:11px;color:var(--muted);font-weight:700">DURUM</label><p>${statusBadge(p.status)}</p></div>
-      <div style="grid-column:1/-1"><label style="font-size:11px;color:var(--muted);font-weight:700">ADRES</label><p>${p.address||'—'}</p></div>
-      <div style="grid-column:1/-1"><label style="font-size:11px;color:var(--muted);font-weight:700">HASTALIK DETAYI</label><p style="line-height:1.6">${p.disease_detail}</p></div>
+      <div><label style="font-size:11px;color:var(--muted);font-weight:700">${t('first_name').toUpperCase()} ${t('last_name').toUpperCase()}</label><p style="font-weight:700">${p.first_name} ${p.last_name}</p></div>
+      <div><label style="font-size:11px;color:var(--muted);font-weight:700">${t('th_doctor').toUpperCase()}</label><p>${p.doctors?'Dr. '+p.doctors.first_name+' '+p.doctors.last_name:'—'}</p></div>
+      <div><label style="font-size:11px;color:var(--muted);font-weight:700">${t('phone').toUpperCase()}</label><p>${p.phone||'—'}</p></div>
+      <div><label style="font-size:11px;color:var(--muted);font-weight:700">${t('email').toUpperCase()}</label><p>${p.email||'—'}</p></div>
+      <div><label style="font-size:11px;color:var(--muted);font-weight:700">${t('height').toUpperCase()} / ${t('weight').toUpperCase()}</label><p>${p.height||'?'} cm / ${p.weight||'?'} kg</p></div>
+      <div><label style="font-size:11px;color:var(--muted);font-weight:700">${t('th_status').toUpperCase()}</label><p>${statusBadge(p.status)}</p></div>
+      <div style="grid-column:1/-1"><label style="font-size:11px;color:var(--muted);font-weight:700">${t('address').toUpperCase()}</label><p>${p.address||'—'}</p></div>
+      <div style="grid-column:1/-1"><label style="font-size:11px;color:var(--muted);font-weight:700">${t('disease_detail').toUpperCase()}</label><p style="line-height:1.6">${p.disease_detail}</p></div>
     </div>
-    ${p.patient_documents&&p.patient_documents.length?`<div style="margin-bottom:16px"><label style="font-size:11px;color:var(--muted);font-weight:700;display:block;margin-bottom:8px">YÜKLENEN BELGELER</label>${p.patient_documents.map(d=>`<a href="${d.file_url}" target="_blank" class="btn btn-outline btn-sm" style="margin-right:6px;margin-bottom:6px">📄 ${d.file_name}</a>`).join('')}</div>`:''}
+    ${p.patient_documents&&p.patient_documents.length?`<div style="margin-bottom:16px"><label style="font-size:11px;color:var(--muted);font-weight:700;display:block;margin-bottom:8px">${t('upload_docs').toUpperCase()}</label>${p.patient_documents.map(d=>`<a href="${d.file_url}" target="_blank" class="btn btn-outline btn-sm" style="margin-right:6px;margin-bottom:6px">📄 ${d.file_name}</a>`).join('')}</div>`:''}
     <div class="ai-report-box">
-      <div class="ai-report-header">🤖 AI Analiz Raporu</div>
-      <div style="background:#fff;border-radius:6px;padding:12px;font-size:13px;line-height:1.7;white-space:pre-wrap;max-height:220px;overflow-y:auto">${p.ai_report||'Rapor bulunamadı'}</div>
+      <div class="ai-report-header">🤖 AI ${t('th_dept')}</div>
+      <div style="background:#fff;border-radius:6px;padding:12px;font-size:13px;line-height:1.7;white-space:pre-wrap;max-height:220px;overflow-y:auto">${p.ai_report||'—'}</div>
       <div style="margin-top:8px;display:flex;align-items:center;gap:8px">
         <span style="background:var(--primary);color:#fff;padding:4px 12px;border-radius:6px;font-size:12px;font-weight:700">🏥 ${p.ai_department||'—'}</span>
-        <button class="btn btn-accent btn-sm" onclick="downloadPDF('${p.id}')">📄 PDF</button>
+        <button class="btn btn-accent btn-sm" onclick="downloadPDF('${p.id}')">${t('btn_pdf')}</button>
       </div>
     </div>
-    ${p.price_offer?`<div style="margin-top:14px;padding:12px;background:#E8F5E9;border-radius:8px;border:1px solid #A8D5B8"><label style="font-size:11px;color:#2E7D32;font-weight:700">FİYAT TEKLİFİ</label><div style="font-size:24px;font-weight:800;color:#1A7F5A">$${p.price_offer}</div>${p.treatment_done?`<div style="font-size:12px;color:#2E7D32;margin-top:4px">✅ Tedavi Tamamlandı — Gelir: $${p.treatment_revenue||0}</div>`:''}</div>`:''}
-    ${isAdmin&&!p.price_offer?`<div style="margin-top:14px;padding:14px;background:#FFF8E1;border-radius:8px;border:1px solid #FFE082"><label style="font-size:11px;color:#F57F17;font-weight:700;display:block;margin-bottom:8px">FİYAT TEKLİFİ GİR</label><div style="display:flex;gap:8px"><input type="number" id="price-input-${p.id}" placeholder="USD cinsinden" style="flex:1;border:1px solid var(--border);border-radius:6px;padding:8px 12px;font-family:inherit"><button class="btn btn-accent" onclick="submitPrice('${p.id}')">Teklif Gönder</button></div></div>`:''}
-    ${isAdmin&&p.price_offer&&!p.treatment_done?`<div style="margin-top:14px;padding:14px;background:#F3E5F5;border-radius:8px;border:1px solid #CE93D8"><label style="font-size:11px;color:#6A1B9A;font-weight:700;display:block;margin-bottom:8px">TEDAVİ TAMAMLANDI MI?</label><div style="display:flex;gap:8px"><input type="number" id="revenue-input-${p.id}" placeholder="Alınan gelir (USD)" style="flex:1;border:1px solid var(--border);border-radius:6px;padding:8px 12px;font-family:inherit"><button class="btn btn-success" onclick="markTreated('${p.id}')">✅ Tedavi Yapıldı & Ödeme Alındı</button></div></div>`:''}`;
-  document.getElementById('modal-patient-footer').innerHTML=`<button class="btn btn-outline" onclick="closeModal('modal-patient')">Kapat</button>`;
+    ${p.price_offer?`<div style="margin-top:14px;padding:12px;background:#E8F5E9;border-radius:8px;border:1px solid #A8D5B8">
+      <label style="font-size:11px;color:#2E7D32;font-weight:700">${t('price_offer_label')}</label>
+      <div style="font-size:24px;font-weight:800;color:#1A7F5A">$${p.price_offer}</div>
+      ${p.treatment_done?`<div style="font-size:12px;color:#2E7D32;margin-top:4px">✅ ${t('treatment_complete')} — ${t('revenue_label')}: $${p.treatment_revenue||0}</div>`:''}
+    </div>`:''}
+    ${isAdmin&&!p.price_offer?`<div style="margin-top:14px;padding:14px;background:#FFF8E1;border-radius:8px;border:1px solid #FFE082">
+      <label style="font-size:11px;color:#F57F17;font-weight:700;display:block;margin-bottom:8px">${t('enter_price')}</label>
+      <div style="display:flex;gap:8px"><input type="number" id="price-input-${p.id}" placeholder="${t('price_placeholder')}" style="flex:1;border:1px solid var(--border);border-radius:6px;padding:8px 12px;font-family:inherit">
+      <button class="btn btn-accent" onclick="submitPrice('${p.id}')">${t('btn_send_offer')}</button></div>
+    </div>`:''}
+    ${isAdmin&&p.price_offer&&!p.treatment_done?`<div style="margin-top:14px;padding:14px;background:#F3E5F5;border-radius:8px;border:1px solid #CE93D8">
+      <label style="font-size:11px;color:#6A1B9A;font-weight:700;display:block;margin-bottom:8px">${t('treatment_complete')}?</label>
+      <div style="display:flex;gap:8px"><input type="number" id="revenue-input-${p.id}" placeholder="${t('revenue_placeholder')}" style="flex:1;border:1px solid var(--border);border-radius:6px;padding:8px 12px;font-family:inherit">
+      <button class="btn btn-success" onclick="markTreated('${p.id}')">${t('btn_treatment_done')}</button></div>
+    </div>`:''}`;
+  document.getElementById('modal-patient-footer').innerHTML=`<button class="btn btn-outline" onclick="closeModal('modal-patient')">${t('btn_close')}</button>`;
   openModal('modal-patient');
 }
 
@@ -777,14 +946,14 @@ async function submitPrice(patientId){
   if(!price||price<=0)return;
   await sb.from('patients').update({price_offer:parseFloat(price),price_offer_date:new Date().toISOString(),status:'quoted'}).eq('id',patientId);
   closeModal('modal-patient');loadAdminLeads();loadAdminDashboard();
-  alert('Fiyat teklifi gönderildi! Doktor bildirim aldı.');
+  alert(t('offer_alert'));
 }
 async function markTreated(patientId){
   const revenue=document.getElementById('revenue-input-'+patientId).value;
   if(!revenue||revenue<=0)return;
   await sb.from('patients').update({treatment_done:true,treatment_date:new Date().toISOString(),treatment_revenue:parseFloat(revenue),status:'treated'}).eq('id',patientId);
   closeModal('modal-patient');loadAdminLeads();loadAdminDashboard();
-  alert('Tedavi kaydedildi! %10 bonus komisyon otomatik hesaplandı.');
+  alert(t('treatment_alert'));
 }
 
 async function loadAdminCommissions(){
@@ -793,19 +962,18 @@ async function loadAdminCommissions(){
   const total=allCommissions.reduce((s,c)=>s+parseFloat(c.amount||0),0);
   const paid=allCommissions.filter(c=>c.paid).reduce((s,c)=>s+parseFloat(c.amount||0),0);
   document.getElementById('adm-comm-stats').innerHTML=`
-    <div class="stat-card"><div class="stat-value">$${total.toFixed(0)}</div><div class="stat-label">Toplam Komisyon</div></div>
-    <div class="stat-card green"><div class="stat-value">$${paid.toFixed(0)}</div><div class="stat-label">Ödenen</div></div>
-    <div class="stat-card red"><div class="stat-value">$${(total-paid).toFixed(0)}</div><div class="stat-label">Bekleyen</div></div>`;
+    <div class="stat-card"><div class="stat-value">$${total.toFixed(0)}</div><div class="stat-label">${t('stat_commission')}</div></div>
+    <div class="stat-card green"><div class="stat-value">$${paid.toFixed(0)}</div><div class="stat-label">${t('stat_paid')}</div></div>
+    <div class="stat-card red"><div class="stat-value">$${(total-paid).toFixed(0)}</div><div class="stat-label">${t('stat_pending2')}</div></div>`;
   document.getElementById('adm-comm-body').innerHTML=allCommissions.length?allCommissions.map(c=>`
-    <tr>
-      <td>${c.doctors?'Dr. '+c.doctors.first_name+' '+c.doctors.last_name:'—'}</td>
-      <td>${c.patients?c.patients.first_name+' '+c.patients.last_name:'—'}</td>
-      <td><span class="badge ${c.type==='lead_fee'?'badge-new':'badge-approved'}">${c.type==='lead_fee'?'Lead $40':'Bonus %10'}</span></td>
-      <td><strong>$${parseFloat(c.amount).toFixed(2)}</strong></td>
-      <td>${fmtDate(c.created_at)}</td>
-      <td><span class="badge ${c.paid?'badge-approved':'badge-pending'}">${c.paid?'Ödendi':'Bekliyor'}</span></td>
-      <td>${!c.paid?`<button class="btn btn-success btn-sm" onclick="payCommission('${c.id}')">Öde</button>`:'✅'}</td>
-    </tr>`).join(''):'<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--muted)">Komisyon kaydı yok</td></tr>';
+    <tr><td>${c.doctors?'Dr. '+c.doctors.first_name+' '+c.doctors.last_name:'—'}</td>
+    <td>${c.patients?c.patients.first_name+' '+c.patients.last_name:'—'}</td>
+    <td><span class="badge ${c.type==='lead_fee'?'badge-new':'badge-approved'}">${c.type==='lead_fee'?t('lead_fee_label')+' $40':t('bonus_label')+' 10%'}</span></td>
+    <td><strong>$${parseFloat(c.amount).toFixed(2)}</strong></td>
+    <td>${fmtDate(c.created_at)}</td>
+    <td><span class="badge ${c.paid?'badge-approved':'badge-pending'}">${c.paid?t('paid_label'):t('unpaid_label')}</span></td>
+    <td>${!c.paid?`<button class="btn btn-success btn-sm" onclick="payCommission('${c.id}')">${t('btn_pay')}</button>`:'✅'}</td></tr>`).join('')
+    :`<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--muted)">${t('no_commissions')}</td></tr>`;
 }
 async function payCommission(id){
   await sb.from('commissions').update({paid:true,paid_date:new Date().toISOString()}).eq('id',id);
@@ -817,14 +985,14 @@ async function loadNotifications(){
   const {data}=await q;
   document.getElementById('notif-count').textContent=(data||[]).length;
 }
-function toggleNotifPanel(){
-  document.getElementById('notif-panel').classList.toggle('hidden');
-  loadNotifList();
-}
+function toggleNotifPanel(){document.getElementById('notif-panel').classList.toggle('hidden');loadNotifList();}
 async function loadNotifList(){
   const q=currentRole==='admin'?sb.from('notifications').select('*').eq('target','admin').order('created_at',{ascending:false}).limit(20):sb.from('notifications').select('*').eq('target','doctor').eq('doctor_id',currentDoctor.id).order('created_at',{ascending:false}).limit(20);
   const {data}=await q;
-  document.getElementById('notif-list').innerHTML=(data||[]).length?(data||[]).map(n=>`<div class="notif-item ${n.read?'':'unread'}" onclick="markNotifRead('${n.id}')"><div>${n.message}</div><div class="notif-time">${fmtDate(n.created_at)}</div></div>`).join(''):'<div style="text-align:center;color:var(--muted);padding:20px">Bildirim yok</div>';
+  document.getElementById('notif-list').innerHTML=(data||[]).length?(data||[]).map(n=>`
+    <div class="notif-item ${n.read?'':'unread'}" onclick="markNotifRead('${n.id}')">
+      <div>${n.message}</div><div class="notif-time">${fmtDate(n.created_at)}</div>
+    </div>`).join(''):`<div style="text-align:center;color:var(--muted);padding:20px">${t('no_notifications')}</div>`;
 }
 async function markNotifRead(id){
   await sb.from('notifications').update({read:true}).eq('id',id);
@@ -839,36 +1007,36 @@ async function downloadPDF(patientId){
   doc.setFont('helvetica','bold');doc.setFontSize(18);doc.setTextColor(10,38,71);
   doc.text('MEMORIAL CABINET',105,20,{align:'center'});
   doc.setFontSize(12);doc.setFont('helvetica','normal');
-  doc.text('AI Hasta Analiz Raporu',105,28,{align:'center'});
+  doc.text('AI Patient Analysis Report',105,28,{align:'center'});
   doc.line(20,32,190,32);
-  doc.setFontSize(11);doc.setFont('helvetica','bold');doc.text('HASTA BİLGİLERİ',20,42);
+  doc.setFontSize(11);doc.setFont('helvetica','bold');doc.text('PATIENT INFO',20,42);
   doc.setFont('helvetica','normal');
-  doc.text('Ad Soyad: '+p.first_name+' '+p.last_name,20,50);
-  doc.text('Boy: '+(p.height||'?')+' cm | Kilo: '+(p.weight||'?')+' kg',20,57);
-  doc.text('Referans Doktor: '+(p.doctors?'Dr. '+p.doctors.first_name+' '+p.doctors.last_name:'—'),20,64);
-  doc.text('Tarih: '+fmtDate(p.created_at),20,71);
+  doc.text('Name: '+p.first_name+' '+p.last_name,20,50);
+  doc.text('Height: '+(p.height||'?')+' cm | Weight: '+(p.weight||'?')+' kg',20,57);
+  doc.text('Referring Doctor: '+(p.doctors?'Dr. '+p.doctors.first_name+' '+p.doctors.last_name:'—'),20,64);
+  doc.text('Date: '+fmtDate(p.created_at),20,71);
   doc.line(20,76,190,76);
-  doc.setFont('helvetica','bold');doc.text('HASTALIK DETAYI',20,84);
+  doc.setFont('helvetica','bold');doc.text('DISEASE DETAIL',20,84);
   doc.setFont('helvetica','normal');
   const dl=doc.splitTextToSize(p.disease_detail||'—',170);
   doc.text(dl,20,92);
   let y=92+dl.length*6+8;
   doc.line(20,y,190,y);y+=8;
-  doc.setFont('helvetica','bold');doc.text('AI ANALİZ RAPORU',20,y);y+=8;
+  doc.setFont('helvetica','bold');doc.text('AI ANALYSIS REPORT',20,y);y+=8;
   doc.setFont('helvetica','normal');
   const rl=doc.splitTextToSize((p.ai_report||'').replace(/\*\*/g,''),170);
   rl.forEach(line=>{if(y>270){doc.addPage();y=20;}doc.text(line,20,y);y+=6;});
   if(y>250)doc.addPage();
   doc.setFillColor(10,38,71);doc.rect(20,y+4,170,14,'F');
   doc.setTextColor(255,255,255);doc.setFont('helvetica','bold');
-  doc.text('ÖNERİLEN BÖLÜM: '+(p.ai_department||'—'),105,y+13,{align:'center'});
-  doc.save('memorial_rapor_'+p.first_name+'_'+p.last_name+'.pdf');
+  doc.text('RECOMMENDED DEPT: '+(p.ai_department||'—'),105,y+13,{align:'center'});
+  doc.save('memorial_report_'+p.first_name+'_'+p.last_name+'.pdf');
 }
 
 function statusBadge(s){
-  const m={pending:'badge-pending',approved:'badge-approved',rejected:'badge-rejected',new:'badge-new',reviewed:'badge-reviewed',quoted:'badge-quoted',treated:'badge-treated'};
-  const l={pending:'Bekliyor',approved:'Onaylı',rejected:'Reddedildi',new:'Yeni',reviewed:'İncelendi',quoted:'Teklifli',treated:'Tedavi Oldu'};
-  return`<span class="badge ${m[s]||''}">${l[s]||s}</span>`;
+  const m={pending:'badge-pending',approved:'badge-approved',rejected:'badge-rejected',new:'badge-new',reviewed:'badge-pending',quoted:'badge-quoted',treated:'badge-treated'};
+  const lk={pending:'status_pending',approved:'status_approved',rejected:'status_rejected',new:'status_new2',reviewed:'status_reviewed',quoted:'status_quoted2',treated:'status_treated2'};
+  return`<span class="badge ${m[s]||''}">${t(lk[s]||s)}</span>`;
 }
 function fmtDate(dt){if(!dt)return'—';return new Date(dt).toLocaleDateString('tr-TR',{day:'2-digit',month:'2-digit',year:'numeric'});}
 function showMsg(elId,msg,type){const el=document.getElementById(elId);if(el)el.innerHTML=msg?`<div class="msg msg-${type}">${msg}</div>`:'';}
