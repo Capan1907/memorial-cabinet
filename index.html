@@ -382,12 +382,46 @@ const i18n={
 
 function setLang(l){
   currentLang=l;
-  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.remove('active'));
-  event.target.classList.add('active');
-  document.getElementById('txt-subtitle').textContent=i18n[l].subtitle;
-  document.getElementById('tab-btn-doctor').textContent=i18n[l].d_login;
-  document.getElementById('tab-btn-admin').textContent=i18n[l].a_login;
-  document.getElementById('tab-btn-register').textContent=i18n[l].reg;
+  // Update active button
+  document.querySelectorAll('.lang-btn').forEach(b=>{
+    b.classList.remove('active');
+    if(b.textContent.trim()===l.toUpperCase()) b.classList.add('active');
+  });
+  // Login page texts
+  if(document.getElementById('txt-subtitle')) document.getElementById('txt-subtitle').textContent=i18n[l].subtitle;
+  if(document.getElementById('tab-btn-doctor')) document.getElementById('tab-btn-doctor').textContent=i18n[l].d_login;
+  if(document.getElementById('tab-btn-admin')) document.getElementById('tab-btn-admin').textContent=i18n[l].a_login;
+  if(document.getElementById('tab-btn-register')) document.getElementById('tab-btn-register').textContent=i18n[l].reg;
+
+  // Sidebar labels
+  const sidebarMap={
+    tr:{dashboard:'Özet',my_patients:'Hastalarım',new_patient:'Yeni Hasta',wallet:'Cüzdan',leaderboard:'Sıralama',doctors:'Doktorlar',leads:'Hasta Leadleri',commissions:'Komisyonlar'},
+    en:{dashboard:'Dashboard',my_patients:'My Patients',new_patient:'New Patient',wallet:'Wallet',leaderboard:'Leaderboard',doctors:'Doctors',leads:'Patient Leads',commissions:'Commissions'},
+    fr:{dashboard:'Tableau de bord',my_patients:'Mes patients',new_patient:'Nouveau patient',wallet:'Portefeuille',leaderboard:'Classement',doctors:'Médecins',leads:'Leads Patients',commissions:'Commissions'}
+  };
+  // Page headers
+  const headerMap={
+    'doc-dashboard':{tr:'Hoş Geldiniz',en:'Welcome Back',fr:'Bienvenue'},
+    'adm-dashboard':{tr:'Admin Dashboard',en:'Admin Dashboard',fr:'Tableau de bord Admin'},
+    'doc-patients':{tr:'Hastalarım',en:'My Patients',fr:'Mes patients'},
+    'doc-new-patient':{tr:'Yeni Hasta Yönlendirme',en:'New Patient Referral',fr:'Nouvelle référence patient'},
+    'doc-wallet':{tr:'Cüzdan',en:'Wallet',fr:'Portefeuille'},
+    'doc-leaderboard':{tr:'En İyi Doktorlar',en:'Top Doctors',fr:'Meilleurs Médecins'},
+    'adm-doctors':{tr:'Doktorlar',en:'Doctors',fr:'Médecins'},
+    'adm-leads':{tr:'Hasta Leadleri',en:'Patient Leads',fr:'Leads Patients'},
+    'adm-commissions':{tr:'Komisyon Yönetimi',en:'Commission Management',fr:'Gestion des Commissions'},
+    'adm-leaderboard':{tr:'Doktor Sıralaması',en:'Doctor Rankings',fr:'Classement Médecins'},
+  };
+  Object.keys(headerMap).forEach(pageId=>{
+    const page=document.getElementById('page-'+pageId);
+    if(page){
+      const h2=page.querySelector('h2');
+      if(h2) h2.textContent=headerMap[pageId][l]||headerMap[pageId].tr;
+    }
+  });
+  // Logout button
+  const logoutBtn=document.getElementById('logout-btn');
+  if(logoutBtn) logoutBtn.innerHTML={tr:'⬅ Çıkış',en:'⬅ Logout',fr:'⬅ Déconnexion'}[l];
 }
 
 window.addEventListener('DOMContentLoaded',()=>{
