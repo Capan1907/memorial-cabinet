@@ -190,7 +190,8 @@ tr:hover td{background:#F8FAFF}
         <div class="nav-item active" onclick="showPage('adm-dashboard')"><span class="nav-icon">📊</span><span data-i18n="nav_dashboard">Özet</span></div>
         <div class="nav-item" onclick="showPage('adm-doctors')"><span class="nav-icon">👨‍⚕️</span><span data-i18n="nav_doctors">Doktorlar</span></div>
         <div class="nav-item" onclick="showPage('adm-leads')"><span class="nav-icon">📋</span><span data-i18n="nav_leads">Hasta Leadleri</span></div>
-        <div class="nav-item" onclick="showPage('adm-commissions')"><span class="nav-icon">💳</span><span data-i18n="nav_commissions">Komisyonlar</span></div>
+        <div class="nav-item" onclick="showPage('adm-lead-fees')"><span class="nav-icon">💵</span><span data-i18n="nav_lead_fees">Lead Ücretleri</span></div>
+        <div class="nav-item" onclick="showPage('adm-bonuses')"><span class="nav-icon">🎯</span><span data-i18n="nav_bonuses">Tedavi Bonusları</span></div>
         <div class="nav-item" onclick="showPage('adm-leaderboard')"><span class="nav-icon">🏆</span><span data-i18n="nav_leaderboard">Sıralama</span></div>
       </div>
     </div>
@@ -321,10 +322,62 @@ tr:hover td{background:#F8FAFF}
       <div class="card"><div class="table-wrap"><table><thead><tr><th data-i18n="th_patient">Hasta</th><th data-i18n="th_doctor">Doktor</th><th data-i18n="th_dept">AI Bölüm</th><th data-i18n="th_date">Tarih</th><th data-i18n="th_status">Durum</th><th data-i18n="th_offer">Teklif</th><th></th></tr></thead><tbody id="adm-leads-body"></tbody></table></div></div>
     </div>
     <!-- ADM COMMISSIONS -->
-    <div id="page-adm-commissions" class="page hidden">
-      <div class="page-header"><h2 data-i18n="nav_commissions">Komisyonlar</h2></div>
-      <div class="stats-grid" id="adm-comm-stats"></div>
-      <div class="card"><div class="table-wrap"><table><thead><tr><th data-i18n="th_doctor">Doktor</th><th data-i18n="th_patient">Hasta</th><th data-i18n="th_type">Tür</th><th data-i18n="th_amount">Tutar</th><th data-i18n="th_date">Tarih</th><th data-i18n="th_status">Durum</th><th></th></tr></thead><tbody id="adm-comm-body"></tbody></table></div></div>
+    <!-- ADM LEAD FEES PAGE -->
+    <div id="page-adm-lead-fees" class="page hidden">
+      <div class="page-header">
+        <h2 data-i18n="nav_lead_fees">Lead Ücretleri</h2>
+        <p data-i18n="lead_fees_sub">Fiyat teklifi verilen her hasta için $40 lead ücreti onay/red yönetimi</p>
+      </div>
+      <div class="stats-grid" id="adm-lf-stats"></div>
+      <div class="card">
+        <div class="section-tabs" style="margin-bottom:16px">
+          <button class="section-tab active" onclick="filterLeadFees('all')" data-i18n="all">Tümü</button>
+          <button class="section-tab" onclick="filterLeadFees('pending')" data-i18n="pending">Bekleyen</button>
+          <button class="section-tab" onclick="filterLeadFees('approved')" data-i18n="approved">Onaylı</button>
+          <button class="section-tab" onclick="filterLeadFees('rejected')" data-i18n="rejected">Reddedilen</button>
+        </div>
+        <div class="table-wrap"><table>
+          <thead><tr>
+            <th data-i18n="th_doctor">Doktor</th>
+            <th data-i18n="th_patient">Hasta</th>
+            <th data-i18n="th_offer">Teklif Tutarı</th>
+            <th data-i18n="th_amount">Lead Ücreti</th>
+            <th data-i18n="th_date">Tarih</th>
+            <th data-i18n="th_status">Durum</th>
+            <th></th>
+          </tr></thead>
+          <tbody id="adm-lf-body"></tbody>
+        </table></div>
+      </div>
+    </div>
+
+    <!-- ADM BONUSES PAGE -->
+    <div id="page-adm-bonuses" class="page hidden">
+      <div class="page-header">
+        <h2 data-i18n="nav_bonuses">Tedavi Bonusları</h2>
+        <p data-i18n="bonuses_sub">Tedavi tamamlanan hastalar için gelirin %10 bonus onay/red yönetimi</p>
+      </div>
+      <div class="stats-grid" id="adm-bonus-stats"></div>
+      <div class="card">
+        <div class="section-tabs" style="margin-bottom:16px">
+          <button class="section-tab active" onclick="filterBonuses('all')" data-i18n="all">Tümü</button>
+          <button class="section-tab" onclick="filterBonuses('pending')" data-i18n="pending">Bekleyen</button>
+          <button class="section-tab" onclick="filterBonuses('approved')" data-i18n="approved">Onaylı</button>
+          <button class="section-tab" onclick="filterBonuses('rejected')" data-i18n="rejected">Reddedilen</button>
+        </div>
+        <div class="table-wrap"><table>
+          <thead><tr>
+            <th data-i18n="th_doctor">Doktor</th>
+            <th data-i18n="th_patient">Hasta</th>
+            <th data-i18n="stat_revenue">Tedavi Geliri</th>
+            <th data-i18n="th_amount">Bonus (%10)</th>
+            <th data-i18n="th_date">Tarih</th>
+            <th data-i18n="th_status">Durum</th>
+            <th></th>
+          </tr></thead>
+          <tbody id="adm-bonus-body"></tbody>
+        </table></div>
+      </div>
     </div>
     <!-- ADM LEADERBOARD -->
     <div id="page-adm-leaderboard" class="page hidden">
@@ -428,6 +481,9 @@ const T={
     missing_fields:'Ad, soyad ve hastalık detayı zorunludur',
     no_data_found:'Hasta bulunamadı',points:'puan',
     leaderboard_title:'🏆 Doktor Sıralaması',no_ranking:'Henüz sıralama yok',
+    nav_lead_fees:'Lead Ücretleri',nav_bonuses:'Tedavi Bonusları',
+    lead_fees_sub:'Fiyat teklifi verilen her hasta için $40 lead ücreti onay/red yönetimi',
+    bonuses_sub:'Tedavi tamamlanan hastalar için gelirin %10 bonus onay/red yönetimi',
   },
   en:{
     subtitle:'Doctor Referral & Patient Management System',
@@ -483,6 +539,9 @@ const T={
     missing_fields:'Name, surname and disease detail are required',
     no_data_found:'No patients found',points:'pts',
     leaderboard_title:'🏆 Doctor Rankings',no_ranking:'No rankings yet',
+    nav_lead_fees:'Lead Fees',nav_bonuses:'Treatment Bonuses',
+    lead_fees_sub:'$40 lead fee approval management for each quoted patient',
+    bonuses_sub:'10% treatment bonus approval management for each treated patient',
   },
   fr:{
     subtitle:'Système de Référence Médecin & Gestion des Patients',
@@ -538,6 +597,9 @@ const T={
     missing_fields:'Prénom, nom et détail de la maladie sont requis',
     no_data_found:'Aucun patient trouvé',points:'pts',
     leaderboard_title:'🏆 Classement Médecins',no_ranking:'Pas encore de classement',
+    nav_lead_fees:'Frais de Lead',nav_bonuses:'Bonus de Traitement',
+    lead_fees_sub:'Gestion approbation/rejet des frais de lead $40 par patient',
+    bonuses_sub:'Gestion approbation/rejet du bonus 10% par patient traité',
   }
 };
 
@@ -662,7 +724,8 @@ function showPage(pageId){
     'doc-dashboard':loadDoctorDashboard,'doc-patients':loadDocPatients,
     'doc-wallet':loadWallet,'doc-leaderboard':()=>loadLeaderboard('doc'),
     'adm-dashboard':loadAdminDashboard,'adm-doctors':loadAdminDoctors,
-    'adm-leads':loadAdminLeads,'adm-commissions':loadAdminCommissions,
+    'adm-leads':loadAdminLeads,
+    'adm-lead-fees':loadLeadFees,'adm-bonuses':loadBonuses,
     'adm-leaderboard':()=>loadLeaderboard('adm')
   };
   if(loaders[pageId])loaders[pageId]();
@@ -760,23 +823,48 @@ async function submitPatient(){
 async function loadWallet(){
   const {data:comms}=await sb.from('commissions').select('*,patients(first_name,last_name)').eq('doctor_id',currentDoctor.id);
   if(!comms)return;
-  const total=comms.reduce((s,c)=>s+parseFloat(c.amount||0),0);
-  const paid=comms.filter(c=>c.paid).reduce((s,c)=>s+parseFloat(c.amount||0),0);
-  document.getElementById('wallet-total').textContent='$'+total.toFixed(2);
-  document.getElementById('wallet-paid').textContent='$'+paid.toFixed(2);
-  document.getElementById('wallet-pending').textContent='$'+(total-paid).toFixed(2);
-  const leads=comms.filter(c=>c.type==='lead_fee').length,bonuses=comms.filter(c=>c.type==='treatment_bonus').length;
+  const leadFees=comms.filter(c=>c.type==='lead_fee');
+  const bonuses=comms.filter(c=>c.type==='treatment_bonus');
+  const totalLeadAmt=leadFees.reduce((s,c)=>s+parseFloat(c.amount||0),0);
+  const paidLeadAmt=leadFees.filter(c=>c.paid).reduce((s,c)=>s+parseFloat(c.amount||0),0);
+  const rejLeadAmt=leadFees.filter(c=>c.rejected).reduce((s,c)=>s+parseFloat(c.amount||0),0);
+  const totalBonusAmt=bonuses.reduce((s,c)=>s+parseFloat(c.amount||0),0);
+  const paidBonusAmt=bonuses.filter(c=>c.paid).reduce((s,c)=>s+parseFloat(c.amount||0),0);
+  const totalPaid=paidLeadAmt+paidBonusAmt;
+  const totalPending=(totalLeadAmt-paidLeadAmt-rejLeadAmt)+(totalBonusAmt-paidBonusAmt);
+  const totalAll=totalPaid+totalPending;
+  document.getElementById('wallet-total').textContent='$'+totalAll.toFixed(2);
+  document.getElementById('wallet-paid').textContent='$'+totalPaid.toFixed(2);
+  document.getElementById('wallet-pending').textContent='$'+totalPending.toFixed(2);
   document.getElementById('wallet-stats').innerHTML=`
-    <div class="stat-card"><div class="stat-value">${leads}</div><div class="stat-label">${t('stat_lead_fee')} (${leads}×$40)</div></div>
-    <div class="stat-card gold"><div class="stat-value">${bonuses}</div><div class="stat-label">${t('stat_bonus')} (10%)</div></div>
-    <div class="stat-card green"><div class="stat-value">$${paid.toFixed(2)}</div><div class="stat-label">${t('stat_paid')}</div></div>
-    <div class="stat-card red"><div class="stat-value">$${(total-paid).toFixed(2)}</div><div class="stat-label">${t('stat_pending2')}</div></div>`;
-  document.getElementById('wallet-table-body').innerHTML=comms.length?comms.map(c=>`
-    <tr><td>${c.patients?c.patients.first_name+' '+c.patients.last_name:'—'}</td>
-    <td>${c.type==='lead_fee'?t('lead_fee_label'):t('bonus_label')}</td>
-    <td><strong>$${parseFloat(c.amount).toFixed(2)}</strong></td>
-    <td>${fmtDate(c.created_at)}</td>
-    <td><span class="badge ${c.paid?'badge-approved':'badge-pending'}">${c.paid?t('paid_label'):t('unpaid_label')}</span></td></tr>`).join('')
+    <div class="stat-card">
+      <div class="stat-value">${leadFees.length}</div>
+      <div class="stat-label">💵 ${t('nav_lead_fees')}</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:4px">
+        ✅ $${paidLeadAmt.toFixed(0)} ${t('paid_label')} &nbsp;|&nbsp; ⏳ $${(totalLeadAmt-paidLeadAmt-rejLeadAmt).toFixed(0)} ${t('stat_pending2')}
+      </div>
+    </div>
+    <div class="stat-card gold">
+      <div class="stat-value">${bonuses.length}</div>
+      <div class="stat-label">🎯 ${t('nav_bonuses')}</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:4px">
+        ✅ $${paidBonusAmt.toFixed(0)} ${t('paid_label')} &nbsp;|&nbsp; ⏳ $${(totalBonusAmt-paidBonusAmt).toFixed(0)} ${t('stat_pending2')}
+      </div>
+    </div>
+    <div class="stat-card green"><div class="stat-value">$${totalPaid.toFixed(2)}</div><div class="stat-label">${t('stat_paid')}</div></div>
+    <div class="stat-card red"><div class="stat-value">$${totalPending.toFixed(2)}</div><div class="stat-label">${t('stat_pending2')}</div></div>`;
+
+  // Separate tables for lead fees and bonuses
+  const makeRow = c => `
+    <tr>
+      <td>${c.patients?c.patients.first_name+' '+c.patients.last_name:'—'}</td>
+      <td>${c.type==='lead_fee'?'<span style="background:#E3F2FD;color:#1565C0;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700">💵 '+t('lead_fee_label')+'</span>':'<span style="background:#F3E5F5;color:#6A1B9A;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700">🎯 '+t('bonus_label')+'</span>'}</td>
+      <td><strong>$${parseFloat(c.amount).toFixed(2)}</strong></td>
+      <td>${fmtDate(c.created_at)}</td>
+      <td>${c.paid?'<span class="badge badge-approved">✅ '+t('paid_label')+'</span>':c.rejected?'<span class="badge badge-rejected">✕ Reddedildi</span>':'<span class="badge badge-pending">⏳ '+t('unpaid_label')+'</span>'}</td>
+    </tr>`;
+
+  document.getElementById('wallet-table-body').innerHTML=comms.length?comms.map(makeRow).join('')
     :`<tr><td colspan="5" style="text-align:center;padding:24px;color:var(--muted)">${t('no_commissions')}</td></tr>`;
 }
 
@@ -956,28 +1044,129 @@ async function markTreated(patientId){
   alert(t('treatment_alert'));
 }
 
-async function loadAdminCommissions(){
-  const {data:comms}=await sb.from('commissions').select('*,doctors(first_name,last_name),patients(first_name,last_name)').order('created_at',{ascending:false});
-  allCommissions=comms||[];
-  const total=allCommissions.reduce((s,c)=>s+parseFloat(c.amount||0),0);
-  const paid=allCommissions.filter(c=>c.paid).reduce((s,c)=>s+parseFloat(c.amount||0),0);
-  document.getElementById('adm-comm-stats').innerHTML=`
-    <div class="stat-card"><div class="stat-value">$${total.toFixed(0)}</div><div class="stat-label">${t('stat_commission')}</div></div>
-    <div class="stat-card green"><div class="stat-value">$${paid.toFixed(0)}</div><div class="stat-label">${t('stat_paid')}</div></div>
-    <div class="stat-card red"><div class="stat-value">$${(total-paid).toFixed(0)}</div><div class="stat-label">${t('stat_pending2')}</div></div>`;
-  document.getElementById('adm-comm-body').innerHTML=allCommissions.length?allCommissions.map(c=>`
-    <tr><td>${c.doctors?'Dr. '+c.doctors.first_name+' '+c.doctors.last_name:'—'}</td>
-    <td>${c.patients?c.patients.first_name+' '+c.patients.last_name:'—'}</td>
-    <td><span class="badge ${c.type==='lead_fee'?'badge-new':'badge-approved'}">${c.type==='lead_fee'?t('lead_fee_label')+' $40':t('bonus_label')+' 10%'}</span></td>
-    <td><strong>$${parseFloat(c.amount).toFixed(2)}</strong></td>
-    <td>${fmtDate(c.created_at)}</td>
-    <td><span class="badge ${c.paid?'badge-approved':'badge-pending'}">${c.paid?t('paid_label'):t('unpaid_label')}</span></td>
-    <td>${!c.paid?`<button class="btn btn-success btn-sm" onclick="payCommission('${c.id}')">${t('btn_pay')}</button>`:'✅'}</td></tr>`).join('')
-    :`<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--muted)">${t('no_commissions')}</td></tr>`;
+// ── LEAD FEES ──
+let allLeadFees=[],leadFeeFilter='all';
+async function loadLeadFees(){
+  const {data}=await sb.from('commissions')
+    .select('*,doctors(first_name,last_name,email),patients(first_name,last_name,price_offer)')
+    .eq('type','lead_fee').order('created_at',{ascending:false});
+  allLeadFees=data||[];
+  const total=allLeadFees.length;
+  const approved=allLeadFees.filter(c=>c.paid).length;
+  const pending=allLeadFees.filter(c=>!c.paid&&!c.rejected).length;
+  const rejected=allLeadFees.filter(c=>c.rejected).length;
+  const totalAmt=allLeadFees.reduce((s,c)=>s+parseFloat(c.amount||0),0);
+  const paidAmt=allLeadFees.filter(c=>c.paid).reduce((s,c)=>s+parseFloat(c.amount||0),0);
+  document.getElementById('adm-lf-stats').innerHTML=`
+    <div class="stat-card"><div class="stat-value">${total}</div><div class="stat-label">${t('lead_fee_label')} (Toplam)</div></div>
+    <div class="stat-card gold"><div class="stat-value">${pending}</div><div class="stat-label">${t('stat_pending')}</div></div>
+    <div class="stat-card green"><div class="stat-value">$${paidAmt.toFixed(0)}</div><div class="stat-label">${t('stat_paid')}</div></div>
+    <div class="stat-card red"><div class="stat-value">$${(totalAmt-paidAmt).toFixed(0)}</div><div class="stat-label">${t('stat_pending2')}</div></div>`;
+  renderLeadFees();
 }
-async function payCommission(id){
-  await sb.from('commissions').update({paid:true,paid_date:new Date().toISOString()}).eq('id',id);
-  loadAdminCommissions();
+function filterLeadFees(f){
+  leadFeeFilter=f;
+  document.querySelectorAll('#page-adm-lead-fees .section-tab').forEach((b,i)=>b.classList.toggle('active',['all','pending','approved','rejected'][i]===f));
+  renderLeadFees();
+}
+function renderLeadFees(){
+  let filtered=allLeadFees;
+  if(leadFeeFilter==='pending') filtered=allLeadFees.filter(c=>!c.paid&&!c.rejected);
+  else if(leadFeeFilter==='approved') filtered=allLeadFees.filter(c=>c.paid);
+  else if(leadFeeFilter==='rejected') filtered=allLeadFees.filter(c=>c.rejected);
+  const tbody=document.getElementById('adm-lf-body');
+  tbody.innerHTML=filtered.length?filtered.map(c=>`
+    <tr>
+      <td>
+        <strong>${c.doctors?'Dr. '+c.doctors.first_name+' '+c.doctors.last_name:'—'}</strong>
+        <div style="font-size:11px;color:var(--muted)">${c.doctors?c.doctors.email:''}</div>
+      </td>
+      <td>${c.patients?c.patients.first_name+' '+c.patients.last_name:'—'}</td>
+      <td><strong style="color:var(--primary)">${c.patients&&c.patients.price_offer?'$'+c.patients.price_offer:'—'}</strong></td>
+      <td><strong style="color:var(--success)">$${parseFloat(c.amount).toFixed(2)}</strong></td>
+      <td>${fmtDate(c.created_at)}</td>
+      <td>${c.paid?'<span class="badge badge-approved">✅ '+t('paid_label')+'</span>':c.rejected?'<span class="badge badge-rejected">✕ '+t('btn_reject')+'</span>':'<span class="badge badge-pending">⏳ '+t('stat_pending')+'</span>'}</td>
+      <td style="display:flex;gap:4px">
+        ${!c.paid&&!c.rejected?`
+          <button class="btn btn-success btn-sm" onclick="approveLeadFee('${c.id}')">${t('btn_approve')}</button>
+          <button class="btn btn-danger btn-sm" onclick="rejectLeadFee('${c.id}')">${t('btn_reject')}</button>
+        `:''}
+      </td>
+    </tr>`).join(''):`<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--muted)">${t('no_commissions')}</td></tr>`;
+}
+async function approveLeadFee(id){
+  await sb.from('commissions').update({paid:true,paid_date:new Date().toISOString(),rejected:false}).eq('id',id);
+  // Notify doctor
+  const c=allLeadFees.find(x=>x.id===id);
+  if(c&&c.doctor_id) await sb.from('notifications').insert([{target:'doctor',doctor_id:c.doctor_id,message:'$40 lead ücretiniz onaylandı ve hesabınıza eklendi!'}]);
+  loadLeadFees();
+}
+async function rejectLeadFee(id){
+  await sb.from('commissions').update({rejected:true,paid:false}).eq('id',id);
+  const c=allLeadFees.find(x=>x.id===id);
+  if(c&&c.doctor_id) await sb.from('notifications').insert([{target:'doctor',doctor_id:c.doctor_id,message:'Lead ücreti talebiniz reddedildi. Detaylar için admin ile iletişime geçin.'}]);
+  loadLeadFees();
+}
+
+// ── BONUSES ──
+let allBonuses=[],bonusFilter='all';
+async function loadBonuses(){
+  const {data}=await sb.from('commissions')
+    .select('*,doctors(first_name,last_name,email),patients(first_name,last_name,treatment_revenue)')
+    .eq('type','treatment_bonus').order('created_at',{ascending:false});
+  allBonuses=data||[];
+  const total=allBonuses.length;
+  const pending=allBonuses.filter(c=>!c.paid&&!c.rejected).length;
+  const totalAmt=allBonuses.reduce((s,c)=>s+parseFloat(c.amount||0),0);
+  const paidAmt=allBonuses.filter(c=>c.paid).reduce((s,c)=>s+parseFloat(c.amount||0),0);
+  document.getElementById('adm-bonus-stats').innerHTML=`
+    <div class="stat-card"><div class="stat-value">${total}</div><div class="stat-label">${t('bonus_label')} (Toplam)</div></div>
+    <div class="stat-card gold"><div class="stat-value">${pending}</div><div class="stat-label">${t('stat_pending')}</div></div>
+    <div class="stat-card green"><div class="stat-value">$${paidAmt.toFixed(0)}</div><div class="stat-label">${t('stat_paid')}</div></div>
+    <div class="stat-card red"><div class="stat-value">$${(totalAmt-paidAmt).toFixed(0)}</div><div class="stat-label">${t('stat_pending2')}</div></div>`;
+  renderBonuses();
+}
+function filterBonuses(f){
+  bonusFilter=f;
+  document.querySelectorAll('#page-adm-bonuses .section-tab').forEach((b,i)=>b.classList.toggle('active',['all','pending','approved','rejected'][i]===f));
+  renderBonuses();
+}
+function renderBonuses(){
+  let filtered=allBonuses;
+  if(bonusFilter==='pending') filtered=allBonuses.filter(c=>!c.paid&&!c.rejected);
+  else if(bonusFilter==='approved') filtered=allBonuses.filter(c=>c.paid);
+  else if(bonusFilter==='rejected') filtered=allBonuses.filter(c=>c.rejected);
+  const tbody=document.getElementById('adm-bonus-body');
+  tbody.innerHTML=filtered.length?filtered.map(c=>`
+    <tr>
+      <td>
+        <strong>${c.doctors?'Dr. '+c.doctors.first_name+' '+c.doctors.last_name:'—'}</strong>
+        <div style="font-size:11px;color:var(--muted)">${c.doctors?c.doctors.email:''}</div>
+      </td>
+      <td>${c.patients?c.patients.first_name+' '+c.patients.last_name:'—'}</td>
+      <td><strong style="color:var(--primary)">${c.patients&&c.patients.treatment_revenue?'$'+c.patients.treatment_revenue:'—'}</strong></td>
+      <td><strong style="color:#6A1B9A">$${parseFloat(c.amount).toFixed(2)}</strong><div style="font-size:11px;color:var(--muted)">%10</div></td>
+      <td>${fmtDate(c.created_at)}</td>
+      <td>${c.paid?'<span class="badge badge-approved">✅ '+t('paid_label')+'</span>':c.rejected?'<span class="badge badge-rejected">✕ '+t('btn_reject')+'</span>':'<span class="badge badge-pending">⏳ '+t('stat_pending')+'</span>'}</td>
+      <td style="display:flex;gap:4px">
+        ${!c.paid&&!c.rejected?`
+          <button class="btn btn-success btn-sm" onclick="approveBonus('${c.id}')">${t('btn_approve')}</button>
+          <button class="btn btn-danger btn-sm" onclick="rejectBonus('${c.id}')">${t('btn_reject')}</button>
+        `:''}
+      </td>
+    </tr>`).join(''):`<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--muted)">${t('no_commissions')}</td></tr>`;
+}
+async function approveBonus(id){
+  await sb.from('commissions').update({paid:true,paid_date:new Date().toISOString(),rejected:false}).eq('id',id);
+  const c=allBonuses.find(x=>x.id===id);
+  if(c&&c.doctor_id) await sb.from('notifications').insert([{target:'doctor',doctor_id:c.doctor_id,message:'Tedavi bonusunuz onaylandı! $'+parseFloat(c.amount).toFixed(2)+' hesabınıza eklendi.'}]);
+  loadBonuses();
+}
+async function rejectBonus(id){
+  await sb.from('commissions').update({rejected:true,paid:false}).eq('id',id);
+  const c=allBonuses.find(x=>x.id===id);
+  if(c&&c.doctor_id) await sb.from('notifications').insert([{target:'doctor',doctor_id:c.doctor_id,message:'Tedavi bonusu talebiniz reddedildi. Detaylar için admin ile iletişime geçin.'}]);
+  loadBonuses();
 }
 
 async function loadNotifications(){
