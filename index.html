@@ -204,7 +204,7 @@ tr:hover td{background:#F8FAFF}
       <div class="stats-grid" id="doc-stats"></div>
       <div class="card">
         <div class="card-header"><span class="card-title" data-i18n="recent_patients">Son Hastalar</span><button class="btn btn-primary btn-sm" onclick="showPage('doc-new-patient')">+ <span data-i18n="nav_new_patient">Yeni Hasta</span></button></div>
-        <div class="table-wrap"><table><thead><tr><th data-i18n="th_patient">Hasta</th><th data-i18n="th_date">Tarih</th><th data-i18n="th_status">Durum</th><th data-i18n="th_offer">Teklif</th><th></th></tr></thead><tbody id="doc-recent-body"></tbody></table></div>
+        <div class="table-wrap"><table><thead><tr><th data-i18n="th_patient">Hasta</th><th data-i18n="th_date">Tarih</th><th data-i18n="th_status">Durum</th><th data-i18n="th_offer">Teklif</th><th>Proforma</th><th></th></tr></thead><tbody id="doc-recent-body"></tbody></table></div>
       </div>
     </div>
     <!-- DOC PATIENTS -->
@@ -732,7 +732,7 @@ function showPage(pageId){
 }
 
 async function loadDoctorDashboard(){
-  const {data:patients}=await sb.from('patients').select('*,commissions(*)').eq('doctor_id',currentDoctor.id);
+  const {data:patients}=await sb.from('patients').select('*,commissions(*),patient_proformas(*)').eq('doctor_id',currentDoctor.id);
   if(!patients)return;
   const total=patients.length,quoted=patients.filter(p=>p.price_offer).length,treated=patients.filter(p=>p.treatment_done).length;
   const earned=patients.flatMap(p=>p.commissions||[]).reduce((s,c)=>s+parseFloat(c.amount||0),0);
@@ -742,22 +742,26 @@ async function loadDoctorDashboard(){
     <div class="stat-card green"><div class="stat-value">${treated}</div><div class="stat-label">${t('stat_treated')}</div></div>
     <div class="stat-card red"><div class="stat-value">$${earned.toFixed(2)}</div><div class="stat-label">${t('stat_earnings')}</div></div>`;
   const recent=[...patients].reverse().slice(0,5);
-  document.getElementById('doc-recent-body').innerHTML=recent.length?recent.map(p=>`
-    <tr><td><strong>${p.first_name} ${p.last_name}</strong></td><td>${fmtDate(p.created_at)}</td>
-    <td>${statusBadge(p.status)}</td><td>${p.price_offer?'$'+p.price_offer:'—'}</td>
-    <td><button class="btn btn-outline btn-sm" onclick="viewPatient('${p.id}')">${t('btn_view')}</button></td></tr>`).join('')
-    :`<tr><td colspan="5" style="text-align:center;padding:24px;color:var(--muted)">${t('no_patients')}</td></tr>`;
+  document.getElementById('doc-recent-body').innerHTML=recent.length?recent.map(p=>{
+    const hasPf=(p.patient_proformas||[]).length>0;
+    return`<tr><td><strong>${p.first_name} ${p.last_name}</strong></td><td>${fmtDate(p.created_at)}</td>
+    <td>${statusBadge(p.status)}</td><td>${p.price_offer?'$'+p.price_offer:'—'}</td><td>${hasPf?'<button class="btn btn-accent btn-sm" onclick="downloadProforma(\''+p.patient_proformas[0].id+'\',\''+p.id+'\')" style="white-space:nowrap">📄 İndir</button>':'—'}</td>
+    <td><button class="btn btn-outline btn-sm" onclick="viewPatient('${p.id}')">${t('btn_view')}</button></td></tr>`;
+  }).join('')
+    :`<tr><td colspan="6" style="text-align:center;padding:24px;color:var(--muted)">${t('no_patients')}</td></tr>`;
 }
 
 async function loadDocPatients(){
-  const {data:patients}=await sb.from('patients').select('*,commissions(*)').eq('doctor_id',currentDoctor.id).order('created_at',{ascending:false});
+  const {data:patients}=await sb.from('patients').select('*,commissions(*),patient_proformas(*)').eq('doctor_id',currentDoctor.id).order('created_at',{ascending:false});
   const tbody=document.getElementById('doc-patients-body');
   if(!patients||!patients.length){tbody.innerHTML=`<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--muted)">${t('no_data_found')}</td></tr>`;return}
   tbody.innerHTML=patients.map(p=>{
     const comm=(p.commissions||[]).reduce((s,c)=>s+parseFloat(c.amount||0),0);
+    const hasPf=(p.patient_proformas||[]).length>0;
     return`<tr><td><strong>${p.first_name} ${p.last_name}</strong></td><td>${p.phone||p.email||'—'}</td>
     <td>${fmtDate(p.created_at)}</td><td>${statusBadge(p.status)}</td>
     <td>${p.price_offer?'$'+p.price_offer:'—'}</td><td>$${comm.toFixed(2)}</td>
+    <td>${hasPf?`<button class="btn btn-accent btn-sm" onclick="downloadProforma('${p.patient_proformas[0].id}','${p.id}')">📄 İndir</button>`:'—'}</td>
     <td><button class="btn btn-outline btn-sm" onclick="viewPatient('${p.id}')">${t('btn_detail')}</button></td></tr>`;
   }).join('');
 }
@@ -1015,6 +1019,14 @@ async function viewPatient(id){
       <div style="font-size:24px;font-weight:800;color:#1A7F5A">$${p.price_offer}</div>
       ${p.treatment_done?`<div style="font-size:12px;color:#2E7D32;margin-top:4px">✅ ${t('treatment_complete')} — ${t('revenue_label')}: $${p.treatment_revenue||0}</div>`:''}
     </div>`:''}
+    ${isAdmin&&p.price_offer&&!p.proforma_id?`<div style="margin-top:14px;padding:14px;background:#FFF8E1;border-radius:8px;border:1px solid #FFE082">
+      <label style="font-size:11px;color:#F57F17;font-weight:700;display:block;margin-bottom:8px">📄 Proforma Yükle</label>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <input type="file" id="proforma-file-${p.id}" accept=".pdf,.doc,.docx,.jpg,.png" style="flex:1;min-width:150px;border:1px solid var(--border);border-radius:6px;padding:8px 12px;font-family:inherit">
+        <button class="btn btn-warning" style="background:#F57F17;color:#fff" onclick="uploadProforma('${p.id}')">📤 Yükle</button>
+      </div>
+      <div style="font-size:11px;color:#F57F17;margin-top:6px">PDF, Word, JPG, PNG destekleniyor</div>
+    </div>`:''}
     ${isAdmin&&!p.price_offer?`<div style="margin-top:14px;padding:14px;background:#FFF8E1;border-radius:8px;border:1px solid #FFE082">
       <label style="font-size:11px;color:#F57F17;font-weight:700;display:block;margin-bottom:8px">${t('enter_price')}</label>
       <div style="display:flex;gap:8px"><input type="number" id="price-input-${p.id}" placeholder="${t('price_placeholder')}" style="flex:1;border:1px solid var(--border);border-radius:6px;padding:8px 12px;font-family:inherit">
@@ -1032,7 +1044,10 @@ async function viewPatient(id){
 async function submitPrice(patientId){
   const price=document.getElementById('price-input-'+patientId).value;
   if(!price||price<=0)return;
+  const {data:p}=await sb.from('patients').select('doctor_id').eq('id',patientId).single();
   await sb.from('patients').update({price_offer:parseFloat(price),price_offer_date:new Date().toISOString(),status:'quoted'}).eq('id',patientId);
+  // Notify doctor
+  if(p.doctor_id) await sb.from('notifications').insert([{target:'doctor',doctor_id:p.doctor_id,patient_id:patientId,message:'Hastanıza fiyat teklifi yapıldı! Proformayı indir.'}]);
   closeModal('modal-patient');loadAdminLeads();loadAdminDashboard();
   alert(t('offer_alert'));
 }
@@ -1167,6 +1182,50 @@ async function rejectBonus(id){
   const c=allBonuses.find(x=>x.id===id);
   if(c&&c.doctor_id) await sb.from('notifications').insert([{target:'doctor',doctor_id:c.doctor_id,message:'Tedavi bonusu talebiniz reddedildi. Detaylar için admin ile iletişime geçin.'}]);
   loadBonuses();
+}
+
+async function uploadProforma(patientId){
+  const fileInput=document.getElementById('proforma-file-'+patientId);
+  if(!fileInput.files[0]){alert('Dosya seçin');return;}
+  const file=fileInput.files[0];
+  const fname='proformas/'+Date.now()+'_'+file.name;
+  const {data:upData,error}=await sb.storage.from('memorial-docs').upload(fname,file);
+  if(error){alert('Upload hatası: '+error.message);return;}
+  const {data:ud}=sb.storage.from('memorial-docs').getPublicUrl(fname);
+  const {data:pf,error:err}=await sb.from('patient_proformas').insert([{
+    patient_id:patientId,
+    file_name:file.name,
+    file_url:ud.publicUrl,
+    file_type:file.type,
+    uploaded_by:'admin'
+  }]).select().single();
+  if(err){alert('DB hatası: '+err.message);return;}
+  // Update patients table with proforma_id
+  await sb.from('patients').update({proforma_id:pf.id}).eq('id',patientId);
+  // Notify doctor
+  const {data:p}=await sb.from('patients').select('doctor_id').eq('id',patientId).single();
+  if(p.doctor_id) await sb.from('notifications').insert([{target:'doctor',doctor_id:p.doctor_id,patient_id:patientId,message:'Proforma yüklendi! Hastaya verecek proformayı indir.'}]);
+  alert('Proforma başarıyla yüklendi!');
+  viewPatient(patientId); // Refresh modal
+}
+
+async function downloadProforma(proformaId,patientId){
+  // Update download count
+  const {data:pf}=await sb.from('patient_proformas').select('*').eq('id',proformaId).single();
+  if(pf){
+    await sb.from('patient_proformas').update({
+      download_count:(pf.download_count||0)+1,
+      last_downloaded:new Date().toISOString()
+    }).eq('id',proformaId);
+    // Notify admin
+    await sb.from('notifications').insert([{
+      target:'admin',
+      patient_id:patientId,
+      message:'Dr. '+currentDoctor.first_name+' '+currentDoctor.last_name+' proformayı indirdi ('+pf.file_name+')'
+    }]);
+    // Open/download file
+    window.open(pf.file_url,'_blank');
+  }
 }
 
 async function loadNotifications(){
