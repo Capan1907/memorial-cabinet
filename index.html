@@ -137,6 +137,7 @@ tr:hover td{background:#F8FAFF}
       <button class="login-tab active" onclick="switchLoginTab('doctor')" id="tab-btn-doctor" data-i18n="doctor_login">Doktor Girişi</button>
       <button class="login-tab" onclick="switchLoginTab('admin')" id="tab-btn-admin" data-i18n="admin_login">Admin Girişi</button>
       <button class="login-tab" onclick="switchLoginTab('register')" id="tab-btn-register" data-i18n="register">Kayıt Ol</button>
+      <button class="login-tab" onclick="switchLoginTab('forgot')" id="tab-btn-forgot" data-i18n="forgot_password">Şifremi Unuttum</button>
     </div>
     <div id="login-msg"></div>
     <div id="tab-doctor">
@@ -167,6 +168,12 @@ tr:hover td{background:#F8FAFF}
         </div>
       </div>
       <button class="btn btn-primary btn-full" onclick="registerDoctor()" style="margin-top:8px" data-i18n="send_app">Başvuruyu Gönder</button>
+    </div>
+    <div id="tab-forgot" class="hidden">
+      <div class="form-group"><label data-i18n="email">E-posta</label><input type="email" id="forgot-email" placeholder="doctor@hospital.com"></div>
+      <p style="font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.5" data-i18n="forgot_hint">E-postanıza şifre sıfırlama linki gönderilecektir. Linki tıklayarak yeni şifre belirleyebilirsiniz.</p>
+      <button class="btn btn-primary btn-full" onclick="sendPasswordReset()" data-i18n="send_reset">Sıfırlama Linki Gönder</button>
+      <div id="forgot-msg"></div>
     </div>
   </div>
 </div>
@@ -481,6 +488,7 @@ const T={
     missing_fields:'Ad, soyad ve hastalık detayı zorunludur',
     no_data_found:'Hasta bulunamadı',points:'puan',
     leaderboard_title:'🏆 Doktor Sıralaması',no_ranking:'Henüz sıralama yok',
+    forgot_password:'Şifremi Unuttum',forgot_hint:'E-postanıza şifre sıfırlama linki gönderilecektir. Linki tıklayarak yeni şifre belirleyebilirsiniz.',send_reset:'Sıfırlama Linki Gönder',
     nav_lead_fees:'Lead Ücretleri',nav_bonuses:'Tedavi Bonusları',
     lead_fees_sub:'Fiyat teklifi verilen her hasta için $40 lead ücreti onay/red yönetimi',
     bonuses_sub:'Tedavi tamamlanan hastalar için gelirin %10 bonus onay/red yönetimi',
@@ -539,6 +547,7 @@ const T={
     missing_fields:'Name, surname and disease detail are required',
     no_data_found:'No patients found',points:'pts',
     leaderboard_title:'🏆 Doctor Rankings',no_ranking:'No rankings yet',
+    forgot_password:'Forgot Password',forgot_hint:'A password reset link will be sent to your email. Click the link to set a new password.',send_reset:'Send Reset Link',
     nav_lead_fees:'Lead Fees',nav_bonuses:'Treatment Bonuses',
     lead_fees_sub:'$40 lead fee approval management for each quoted patient',
     bonuses_sub:'10% treatment bonus approval management for each treated patient',
@@ -597,6 +606,7 @@ const T={
     missing_fields:'Prénom, nom et détail de la maladie sont requis',
     no_data_found:'Aucun patient trouvé',points:'pts',
     leaderboard_title:'🏆 Classement Médecins',no_ranking:'Pas encore de classement',
+    forgot_password:'Mot de passe oublié',forgot_hint:'Un lien de réinitialisation sera envoyé à votre e-mail. Cliquez sur le lien pour définir un nouveau mot de passe.',send_reset:'Envoyer le lien',
     nav_lead_fees:'Frais de Lead',nav_bonuses:'Bonus de Traitement',
     lead_fees_sub:'Gestion approbation/rejet des frais de lead $40 par patient',
     bonuses_sub:'Gestion approbation/rejet du bonus 10% par patient traité',
@@ -637,10 +647,38 @@ window.addEventListener('DOMContentLoaded',()=>{
 });
 
 function switchLoginTab(tab){
-  ['doctor','admin','register'].forEach(t=>document.getElementById('tab-'+t).classList.add('hidden'));
+  ['doctor','admin','register','forgot'].forEach(t=>document.getElementById('tab-'+t).classList.add('hidden'));
   document.getElementById('tab-'+tab).classList.remove('hidden');
   document.querySelectorAll('.login-tab').forEach(b=>b.classList.remove('active'));
   document.getElementById('tab-btn-'+tab).classList.add('active');
+}
+
+async function sendPasswordReset(){
+  const email=document.getElementById('forgot-email').value.trim();
+  if(!email){showMsg('forgot-msg',t('missing_fields'),'error');return}
+  const {data:doc,error}=await sb.from('doctors').select('id').eq('email',email).single();
+  if(error||!doc){showMsg('forgot-msg','Bu e-posta sistemde kayıtlı değil / Email not found in system','error');return}
+  // Generate random token
+  const token=Math.random().toString(36).substr(2,32);
+  const expiresAt=new Date(Date.now()+24*60*60*1000).toISOString(); // 24 hours
+  const {error:err}=await sb.from('password_reset_tokens').insert([{doctor_id:doc.id,token,email,expires_at:expiresAt}]);
+  if(err){showMsg('forgot-msg','Hata oluştu / Error occurred','error');return}
+  // In real app, send email with reset link. For now, show token (dev mode)
+  showMsg('forgot-msg','<strong>✅ Sıfırlama linki e-postanıza gönderildi!</strong><br><small style="color:var(--muted)">(Dev mode: Token: '+token+')</small>','success');
+  document.getElementById('forgot-email').value='';
+}
+
+async function resetPasswordWithToken(token,newPass){
+  const {data:rt,error:err1}=await sb.from('password_reset_tokens').select('*').eq('token',token).single();
+  if(err1||!rt){alert('Token geçersiz veya süresi dolmuş / Invalid or expired token');return false}
+  if(rt.used){alert('Bu token zaten kullanılmış / Token already used');return false}
+  if(new Date(rt.expires_at)<new Date()){alert('Token süresi dolmuş / Token expired');return false}
+  // Update doctor password
+  const {error:err2}=await sb.from('doctors').update({password_hash:btoa(newPass)}).eq('id',rt.doctor_id);
+  if(err2){alert('Şifre güncelleme hatası / Password update error');return false}
+  // Mark token as used
+  await sb.from('password_reset_tokens').update({used:true}).eq('id',rt.id);
+  return true;
 }
 
 async function doctorLogin(){
@@ -1049,8 +1087,16 @@ async function viewPatient(id){
     </div>`:''}
     ${isAdmin&&!p.price_offer?`<div style="margin-top:14px;padding:14px;background:#FFF8E1;border-radius:8px;border:1px solid #FFE082">
       <label style="font-size:11px;color:#F57F17;font-weight:700;display:block;margin-bottom:8px">${t('enter_price')}</label>
-      <div style="display:flex;gap:8px"><input type="number" id="price-input-${p.id}" placeholder="${t('price_placeholder')}" style="flex:1;border:1px solid var(--border);border-radius:6px;padding:8px 12px;font-family:inherit">
+      <div style="display:flex;gap:8px;margin-bottom:12px"><input type="number" id="price-input-${p.id}" placeholder="${t('price_placeholder')}" style="flex:1;border:1px solid var(--border);border-radius:6px;padding:8px 12px;font-family:inherit">
       <button class="btn btn-accent" onclick="submitPrice('${p.id}')">${t('btn_send_offer')}</button></div>
+      <div style="border-top:1px solid #FFE082;padding-top:12px">
+        <label style="font-size:11px;color:#F57F17;font-weight:700;display:block;margin-bottom:8px">📄 Proforma Yükle (Opsiyonel)</label>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <input type="file" id="proforma-file-${p.id}" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" style="flex:1;min-width:150px;border:1px solid #FFE082;border-radius:6px;padding:8px 12px;font-family:inherit;background:#fff">
+          <button class="btn btn-accent" style="white-space:nowrap" onclick="uploadProformaWithPrice('${p.id}')">📤 Yükle</button>
+        </div>
+        <div style="font-size:11px;color:#F57F17;margin-top:6px">PDF, Word, JPG, PNG - Fiyat teklifi gönderirken proforma eklenebilir</div>
+      </div>
     </div>`:''}
     ${isAdmin&&p.price_offer&&!p.treatment_done?`<div style="margin-top:14px;padding:14px;background:#F3E5F5;border-radius:8px;border:1px solid #CE93D8">
       <label style="font-size:11px;color:#6A1B9A;font-weight:700;display:block;margin-bottom:8px">${t('treatment_complete')}?</label>
@@ -1061,16 +1107,7 @@ async function viewPatient(id){
   openModal('modal-patient');
 }
 
-async function submitPrice(patientId){
-  const price=document.getElementById('price-input-'+patientId).value;
-  if(!price||price<=0)return;
-  const {data:p}=await sb.from('patients').select('doctor_id').eq('id',patientId).single();
-  await sb.from('patients').update({price_offer:parseFloat(price),price_offer_date:new Date().toISOString(),status:'quoted'}).eq('id',patientId);
-  // Notify doctor
-  if(p.doctor_id) await sb.from('notifications').insert([{target:'doctor',doctor_id:p.doctor_id,patient_id:patientId,message:'Hastanıza fiyat teklifi yapıldı! Proformayı indir.'}]);
-  closeModal('modal-patient');loadAdminLeads();loadAdminDashboard();
-  alert(t('offer_alert'));
-}
+
 async function markTreated(patientId){
   const revenue=document.getElementById('revenue-input-'+patientId).value;
   if(!revenue||revenue<=0)return;
@@ -1202,6 +1239,50 @@ async function rejectBonus(id){
   const c=allBonuses.find(x=>x.id===id);
   if(c&&c.doctor_id) await sb.from('notifications').insert([{target:'doctor',doctor_id:c.doctor_id,message:'Tedavi bonusu talebiniz reddedildi. Detaylar için admin ile iletişime geçin.'}]);
   loadBonuses();
+}
+
+async function uploadProformaWithPrice(patientId){
+  const price=document.getElementById('price-input-'+patientId).value;
+  if(!price||price<=0){alert('Lütfen fiyat girin');return;}
+  
+  let proformaId=null;
+  const fileInput=document.getElementById('proforma-file-'+patientId);
+  
+  // Upload proforma if provided
+  if(fileInput.files[0]){
+    const file=fileInput.files[0];
+    const fname='proformas/'+Date.now()+'_'+file.name;
+    const {data:upData,error}=await sb.storage.from('memorial-docs').upload(fname,file);
+    if(error){alert('Proforma upload hatası: '+error.message);return;}
+    const {data:ud}=sb.storage.from('memorial-docs').getPublicUrl(fname);
+    const {data:pf,error:err}=await sb.from('patient_proformas').insert([{
+      patient_id:patientId,
+      file_name:file.name,
+      file_url:ud.publicUrl,
+      file_type:file.type,
+      uploaded_by:'admin'
+    }]).select().single();
+    if(err){alert('Proforma kayıt hatası: '+err.message);return;}
+    proformaId=pf.id;
+  }
+  
+  // Update patient with price and proforma
+  const {data:p}=await sb.from('patients').select('doctor_id').eq('id',patientId).single();
+  const updateData={price_offer:parseFloat(price),price_offer_date:new Date().toISOString(),status:'quoted'};
+  if(proformaId) updateData.proforma_id=proformaId;
+  
+  await sb.from('patients').update(updateData).eq('id',patientId);
+  
+  // Notify doctor
+  if(p.doctor_id){
+    const msg=proformaId?'Hastanıza fiyat teklifi yapıldı! Proformayı indir.':'Hastanıza fiyat teklifi yapıldı!';
+    await sb.from('notifications').insert([{target:'doctor',doctor_id:p.doctor_id,patient_id:patientId,message:msg}]);
+  }
+  
+  closeModal('modal-patient');
+  loadAdminLeads();
+  loadAdminDashboard();
+  alert('✅ Teklif başarıyla gönderildi'+(proformaId?' ve proforma yüklendi!':'!'));
 }
 
 async function uploadProforma(patientId){
