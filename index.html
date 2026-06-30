@@ -732,7 +732,14 @@ function showPage(pageId){
 }
 
 async function loadDoctorDashboard(){
-  const {data:patients}=await sb.from('patients').select('*,commissions(*),patient_proformas(*)').eq('doctor_id',currentDoctor.id);
+  const {data:patients}=await sb.from('patients').select('*,commissions(*)').eq('doctor_id',currentDoctor.id);
+  if(patients){
+    // Load proformas separately
+    for(let p of patients){
+      const {data:pf}=await sb.from('patient_proformas').select('*').eq('patient_id',p.id).limit(1);
+      p.patient_proformas=pf||[];
+    }
+  }
   if(!patients)return;
   const total=patients.length,quoted=patients.filter(p=>p.price_offer).length,treated=patients.filter(p=>p.treatment_done).length;
   const earned=patients.flatMap(p=>p.commissions||[]).reduce((s,c)=>s+parseFloat(c.amount||0),0);
@@ -752,7 +759,14 @@ async function loadDoctorDashboard(){
 }
 
 async function loadDocPatients(){
-  const {data:patients}=await sb.from('patients').select('*,commissions(*),patient_proformas(*)').eq('doctor_id',currentDoctor.id).order('created_at',{ascending:false});
+  const {data:patients}=await sb.from('patients').select('*,commissions(*)').eq('doctor_id',currentDoctor.id).order('created_at',{ascending:false});
+  if(patients){
+    // Load proformas separately
+    for(let p of patients){
+      const {data:pf}=await sb.from('patient_proformas').select('*').eq('patient_id',p.id).limit(1);
+      p.patient_proformas=pf||[];
+    }
+  }
   const tbody=document.getElementById('doc-patients-body');
   if(!patients||!patients.length){tbody.innerHTML=`<tr><td colspan="7" style="text-align:center;padding:24px;color:var(--muted)">${t('no_data_found')}</td></tr>`;return}
   tbody.innerHTML=patients.map(p=>{
@@ -971,6 +985,12 @@ async function viewDoctor(id){
 let leadFilter='all';
 async function loadAdminLeads(){
   const {data}=await sb.from('patients').select('*,doctors(first_name,last_name)').order('created_at',{ascending:false});
+  if(data){
+    for(let p of data){
+      const {data:pf}=await sb.from('patient_proformas').select('*').eq('patient_id',p.id).limit(1);
+      p.patient_proformas=pf||[];
+    }
+  }
   allLeads=data||[];renderLeads();
 }
 function filterLeads(f){
